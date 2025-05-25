@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Detecta si el jugador está tocando el suelo usando un sphere check.
+/// Detects if player is grounded with a Sphere Check
 /// </summary>
 public class PlayerGroundChecker : MonoBehaviour
 {

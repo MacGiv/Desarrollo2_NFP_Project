@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
-/// Captura los inputs del jugador y los expone a otros scripts.
+/// Capture Player's imputs and expose them to other scripts
 /// </summary>
 public class PlayerInputHandler : MonoBehaviour
 {
@@ -44,7 +44,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void Update()
     {
-        // Timer de jump buffer
+        // Timer of jump buffer
         if (jumpBufferTimer > 0f)
         {
             jumpBufferTimer -= Time.deltaTime;
@@ -52,7 +52,7 @@ public class PlayerInputHandler : MonoBehaviour
     }
 
     /// <summary>
-    /// Llamado por el estado cuando el salto ha sido consumido.
+    /// Consume Jump
     /// </summary>
     public void UseJump()
     {
