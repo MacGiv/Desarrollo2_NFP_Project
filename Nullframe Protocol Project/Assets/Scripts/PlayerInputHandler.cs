@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
-/// Se encarga de capturar y exponer los inputs del jugador.
+/// Captura los inputs del jugador y los expone a otros scripts.
 /// </summary>
 public class PlayerInputHandler : MonoBehaviour
 {
@@ -10,62 +10,52 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] private InputActionReference moveAction;
     [SerializeField] private InputActionReference jumpAction;
 
-    // Movimiento expuesto como propiedad pública
-    public Vector2 MovementInput { get; private set; }
+    [Header("Jump Buffer")]
+    [SerializeField] private float jumpBufferTime = 0.15f;
 
-    // Salto
-    public bool JumpPressed { get; private set; }          // Se presionó este frame
-    public bool JumpHeld { get; private set; }             // Se mantiene presionado
+    public Vector2 MovementInput { get; private set; }
+    public bool JumpHeld { get; private set; }
+    public bool JumpPressed => jumpBufferTimer > 0f;
+
+    private float jumpBufferTimer;
 
     private void OnEnable()
     {
-        // Movimiento
-        moveAction.action.started += HandleMoveInput;
-        moveAction.action.performed += HandleMoveInput;
-        moveAction.action.canceled += HandleMoveInput;
+        moveAction.action.Enable();
+        jumpAction.action.Enable();
 
-        // Salto
-        jumpAction.action.started += OnJumpStarted;
-        jumpAction.action.canceled += OnJumpCanceled;
+        moveAction.action.performed += ctx => MovementInput = ctx.ReadValue<Vector2>();
+        moveAction.action.canceled += ctx => MovementInput = Vector2.zero;
+
+        jumpAction.action.started += ctx =>
+        {
+            jumpBufferTimer = jumpBufferTime;
+            JumpHeld = true;
+        };
+
+        jumpAction.action.canceled += ctx => JumpHeld = false;
     }
 
     private void OnDisable()
     {
-        moveAction.action.started -= HandleMoveInput;
-        moveAction.action.performed -= HandleMoveInput;
-        moveAction.action.canceled -= HandleMoveInput;
-
-        jumpAction.action.started -= OnJumpStarted;
-        jumpAction.action.canceled -= OnJumpCanceled;
+        moveAction.action.Disable();
+        jumpAction.action.Disable();
     }
 
-    /// <summary>
-    /// Lee y almacena el input direccional.
-    /// </summary>
-    private void HandleMoveInput(InputAction.CallbackContext ctx)
+    private void Update()
     {
-        MovementInput = ctx.ReadValue<Vector2>();
+        // Timer de jump buffer
+        if (jumpBufferTimer > 0f)
+        {
+            jumpBufferTimer -= Time.deltaTime;
+        }
     }
 
     /// <summary>
-    /// Marca el inicio de un salto.
+    /// Llamado por el estado cuando el salto ha sido consumido.
     /// </summary>
-    private void OnJumpStarted(InputAction.CallbackContext ctx)
+    public void UseJump()
     {
-        JumpPressed = true;
-        JumpHeld = true;
+        jumpBufferTimer = 0f;
     }
-
-    /// <summary>
-    /// Marca el fin del salto.
-    /// </summary>
-    private void OnJumpCanceled(InputAction.CallbackContext ctx)
-    {
-        JumpHeld = false;
-    }
-
-    /// <summary>
-    /// Llamar desde el script de movimiento luego de consumir el input.
-    /// </summary>
-    public void UseJump() => JumpPressed = false;
 }
