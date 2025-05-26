@@ -19,7 +19,7 @@ public class PlayerHealthSystem : MonoBehaviour
         {
             currentHealth -= amount;
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-            Debug.Log("Player took damage. Amount: " + amount);
+            // Debug.Log("Player took damage. Amount: " + amount);
             if (currentHealth <= 0)
             {
                 Die();
@@ -44,7 +44,7 @@ public class PlayerHealthSystem : MonoBehaviour
     private void Die()
     {
         isDead = true;
-        Debug.Log("Player has died.");
+        // Debug.Log("Player has died.");
         // TODO: Reiniciar escena
     }
 }
