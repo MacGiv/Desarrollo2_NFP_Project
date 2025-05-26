@@ -15,7 +15,7 @@ MonoBehaviour:
   moveSpeed: 10
   acceleration: 30
   deceleration: 25
-  rotationSpeed: 10
+  rotationSpeed: 5
   jumpForce: 24
   jumpHoldForce: 24
   jumpHoldTime: 0.2
