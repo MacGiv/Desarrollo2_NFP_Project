@@ -9,6 +9,7 @@ public class PlayerCore : MonoBehaviour
     private PlayerGroundChecker groundChecker;
     private PlayerMovement movement;
     private PlayerStateMachine stateMachine;
+    private Animator animator;
 
     // State Variables
     private PlayerIdleState state_idle;
@@ -25,6 +26,7 @@ public class PlayerCore : MonoBehaviour
     public PlayerInputHandler Input => input;
     public PlayerMovement Movement => movement;
     public PlayerGroundChecker GroundChecker => groundChecker;
+    public Animator Animator => animator;
 
     private void Awake()
     {
@@ -33,12 +35,13 @@ public class PlayerCore : MonoBehaviour
         movement = GetComponent<PlayerMovement>();
         movement.SetData(data);
         stateMachine = new PlayerStateMachine();
+        animator = GetComponentInChildren<Animator>();
 
         // Initialize States
-        state_idle = new PlayerIdleState(this, stateMachine, data);
-        state_move = new PlayerMoveState(this, stateMachine, data);
-        state_jump = new PlayerJumpState(this, stateMachine, data);
-        state_inAir = new PlayerInAirState(this, stateMachine, data);
+        state_idle = new PlayerIdleState(this, stateMachine, data, "idle");
+        state_move = new PlayerMoveState(this, stateMachine, data, "isMoving");
+        state_jump = new PlayerJumpState(this, stateMachine, data, "jump");
+        state_inAir = new PlayerInAirState(this, stateMachine, data, "inAir");
 
         stateMachine.Initialize(state_idle);
     }
@@ -50,8 +53,8 @@ public class PlayerCore : MonoBehaviour
 
     private void FixedUpdate()
     {
-        groundChecker.CheckGround();
-        movement.UpdateGrounded(groundChecker.IsGrounded);
+        // groundChecker.CheckGround();
+        // movement.UpdateGrounded(groundChecker.IsGrounded);
         stateMachine.FixedUpdate();
     }
 }
