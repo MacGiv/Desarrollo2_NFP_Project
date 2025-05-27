@@ -9,17 +9,25 @@ public abstract class PlayerState
     protected PlayerCore core;
     protected PlayerStateMachine stateMachine;
     protected PlayerData data;
+    protected string animName;
 
-    public PlayerState(PlayerCore core, PlayerStateMachine stateMachine, PlayerData data)
+    public PlayerState(PlayerCore core, PlayerStateMachine stateMachine, PlayerData data, string animName)
     {
         this.core = core;
         this.stateMachine = stateMachine;
         this.data = data;
+        this.animName = animName;
     }
 
-    public virtual void Enter() { }
+    public virtual void Enter() 
+    { 
+        core.Animator.SetBool(animName, true);
+    }
 
-    public virtual void Exit() { }
+    public virtual void Exit() 
+    {
+        core.Animator.SetBool(animName, false);
+    }
 
     public virtual void LogicUpdate() { }
 

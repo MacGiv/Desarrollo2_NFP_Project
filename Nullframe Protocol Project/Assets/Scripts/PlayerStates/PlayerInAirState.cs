@@ -2,10 +2,7 @@ using UnityEngine;
 
 public class PlayerInAirState : PlayerState
 {
-    private PlayerInputHandler inputHandler;
-    private PlayerGroundChecker groundChecker;
-
-    public PlayerInAirState(PlayerCore core, PlayerStateMachine stateMachine, PlayerData data) : base(core, stateMachine, data)
+    public PlayerInAirState(PlayerCore core, PlayerStateMachine stateMachine, PlayerData data, string animName) : base(core, stateMachine, data, animName)
     { }
 
     public override void LogicUpdate()
@@ -27,6 +24,8 @@ public class PlayerInAirState : PlayerState
 
     public override void PhysicsUpdate()
     {
+        core.GroundChecker.CheckGround();
+        core.Movement.UpdateGrounded(core.GroundChecker.IsGrounded);
         core.Movement.Move(); // TODO: Limit the air movement control
         core.Movement.HoldJump(core.Input.JumpHeld); // Holded Jump
     }

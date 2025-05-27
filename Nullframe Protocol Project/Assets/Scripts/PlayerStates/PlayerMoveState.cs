@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerMoveState : PlayerGroundedState
 {
-    public PlayerMoveState(PlayerCore core, PlayerStateMachine stateMachine, PlayerData data) : base(core, stateMachine, data)
+    public PlayerMoveState(PlayerCore core, PlayerStateMachine stateMachine, PlayerData data, string animName) : base(core, stateMachine, data, animName)
     { }
 
     public override void LogicUpdate()

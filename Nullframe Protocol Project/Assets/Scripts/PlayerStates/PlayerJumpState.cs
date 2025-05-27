@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class PlayerJumpState : PlayerGroundedState
+public class PlayerJumpState : PlayerState
 {
-    public PlayerJumpState(PlayerCore core, PlayerStateMachine stateMachine, PlayerData data) : base(core, stateMachine, data)
+    public PlayerJumpState(PlayerCore core, PlayerStateMachine stateMachine, PlayerData data, string animName) : base(core, stateMachine, data, animName)
     { }
 
     public override void Enter()

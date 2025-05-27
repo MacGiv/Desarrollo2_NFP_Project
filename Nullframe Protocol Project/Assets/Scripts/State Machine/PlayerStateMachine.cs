@@ -22,11 +22,11 @@ public class PlayerStateMachine
 
     public void Update()
     {
-        CurrentState?.LogicUpdate();
+        CurrentState.LogicUpdate();
     }
 
     public void FixedUpdate()
     {
-        CurrentState?.PhysicsUpdate();
+        CurrentState.PhysicsUpdate();
     }
 }
