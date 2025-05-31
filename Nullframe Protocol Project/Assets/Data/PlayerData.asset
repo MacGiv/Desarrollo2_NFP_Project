@@ -18,6 +18,6 @@ MonoBehaviour:
   rotationSpeed: 20
   jumpForce: 30
   jumpHoldForce: 30
-  jumpHoldTime: 0.2
+  jumpHoldTime: 0.3
   coyoteTime: 0.5
   maxJumps: 1

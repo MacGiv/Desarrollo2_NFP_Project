@@ -51,9 +51,6 @@ public class PlayerInputHandler : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Consume Jump
-    /// </summary>
     public void UseJump()
     {
         jumpBufferTimer = 0f;
