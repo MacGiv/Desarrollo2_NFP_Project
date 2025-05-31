@@ -77,7 +77,10 @@ public class PlayerMovement : MonoBehaviour
 
     public bool CanJump()
     {
-        return coyoteTimer > 0f && jumpCount < data.MaxJumps;
+        // Can jump if:
+        // - Coyote time didn't run out
+        // - We have enough jumps left 
+        return coyoteTimer > 0f || jumpCount < data.MaxJumps;
     }
 
     public void Jump()
