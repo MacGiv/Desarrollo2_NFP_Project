@@ -26,6 +26,7 @@ public class PlayerMoveState : PlayerGroundedState
 
     public override void PhysicsUpdate()
     {
+        base.PhysicsUpdate();
         core.Movement.Move();
     }
 }
