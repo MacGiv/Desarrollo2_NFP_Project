@@ -63,9 +63,19 @@ public class PlayerMovement : MonoBehaviour
         // Movement + rotation
         if (moveDir.magnitude > 0.1f)
         {
-            currentVelocity = Vector3.MoveTowards(currentVelocity, moveDir * data.MoveSpeed, data.Acceleration * Time.fixedDeltaTime);
-            Quaternion targetRot = Quaternion.LookRotation(moveDir);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, data.RotationSpeed * Time.fixedDeltaTime);
+            currentVelocity = Vector3.Lerp(currentVelocity,
+                                           moveDir * data.MoveSpeed,
+                                           data.Acceleration * Time.fixedDeltaTime);
+
+            if (Vector3.Dot(transform.forward, moveDir) > -0.8f) // no 180°
+            {
+                Quaternion targetRot = Quaternion.LookRotation(moveDir);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, data.RotationSpeed * Time.fixedDeltaTime);
+            }
+            else
+            {
+                transform.rotation = Quaternion.LookRotation(moveDir); // rotación inmediata en reversa
+            }
         }
         else
         {
