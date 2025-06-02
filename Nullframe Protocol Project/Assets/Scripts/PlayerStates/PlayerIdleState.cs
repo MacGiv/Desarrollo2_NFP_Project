@@ -12,7 +12,7 @@ public class PlayerIdleState : PlayerGroundedState
         // Change to Jump
         if (core.Input.JumpPressed && core.Movement.CanJump())
         {
-            core.Input.UseJump();
+            core.Input.ResetJumpBuffer();
             stateMachine.ChangeState(core.JumpState);
             return;
         }

@@ -27,6 +27,7 @@ public class PlayerCore : MonoBehaviour
     public PlayerMovement Movement => movement;
     public PlayerGroundChecker GroundChecker => groundChecker;
     public Animator Animator => animator;
+    public PlayerStateMachine StateMachine => stateMachine;
 
     private void Awake()
     {
@@ -53,8 +54,6 @@ public class PlayerCore : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // groundChecker.CheckGround();
-        // movement.UpdateGrounded(groundChecker.IsGrounded);
         stateMachine.FixedUpdate();
     }
 }

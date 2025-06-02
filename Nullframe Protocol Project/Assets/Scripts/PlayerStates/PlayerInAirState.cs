@@ -17,7 +17,7 @@ public class PlayerInAirState : PlayerState
         // If Jump Pressed, change to JumpState
         if (core.Input.JumpPressed && core.Movement.CanJump())
         {
-            core.Input.UseJump();
+            core.Input.ResetJumpBuffer();
             stateMachine.ChangeState(core.JumpState);
         }
     }
@@ -26,7 +26,10 @@ public class PlayerInAirState : PlayerState
     {
         core.GroundChecker.CheckGround();
         core.Movement.UpdateGrounded(core.GroundChecker.IsGrounded);
-        core.Movement.Move(); // TODO: Limit the air movement control
-        core.Movement.HoldJump(core.Input.JumpHeld); // Holded Jump
+
+        Vector3 moveDir = core.Movement.GetCameraRelativeInput();
+        core.Movement.Move(moveDir); 
+        core.Movement.ApplyRotation(moveDir);
+        core.Movement.HoldJump(core.Input.JumpHeld);
     }
 }

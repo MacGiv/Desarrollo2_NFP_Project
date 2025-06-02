@@ -10,7 +10,7 @@ public abstract class PlayerGroundedState : PlayerState
     public override void LogicUpdate()
     {
         // Checks if player left the ground
-        if (!core.GroundChecker.IsGrounded) //&& !core.Movement.CanJump())
+        if (!core.GroundChecker.IsGrounded)
         {
             stateMachine.ChangeState(core.InAirState);
         }
@@ -18,7 +18,6 @@ public abstract class PlayerGroundedState : PlayerState
 
     public override void PhysicsUpdate()
     {
-        base.PhysicsUpdate();
         core.GroundChecker.CheckGround();
         core.Movement.UpdateGrounded(core.GroundChecker.IsGrounded);
     }

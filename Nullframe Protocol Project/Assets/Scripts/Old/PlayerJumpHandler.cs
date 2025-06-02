@@ -50,7 +50,7 @@ public class PlayerJumpHandler : MonoBehaviour
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             jumpHoldTimer = 0f;
             jumpCount++;
-            input.UseJump(); // Decrease amount of jumps
+            input.ResetJumpBuffer(); // Decrease amount of jumps
         }
 
         // Jump Hold

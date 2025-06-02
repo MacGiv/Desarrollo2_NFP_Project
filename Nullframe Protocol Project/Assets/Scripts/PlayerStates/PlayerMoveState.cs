@@ -12,7 +12,7 @@ public class PlayerMoveState : PlayerGroundedState
         // If jump pressed, change to JumpState
         if (core.Input.JumpPressed && core.Movement.CanJump())
         {
-            core.Input.UseJump();
+            core.Input.ResetJumpBuffer();
             stateMachine.ChangeState(core.JumpState);
             return;
         }
@@ -27,6 +27,9 @@ public class PlayerMoveState : PlayerGroundedState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        core.Movement.Move();
+
+        Vector3 moveDir = core.Movement.GetCameraRelativeInput();
+        core.Movement.Move(moveDir);
+        core.Movement.ApplyRotation(moveDir);
     }
 }

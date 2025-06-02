@@ -8,6 +8,7 @@ public class PlayerData : ScriptableObject
     [SerializeField] private float acceleration = 30f;
     [SerializeField] private float deceleration = 25f;
     [SerializeField] private float rotationSpeed = 10f;
+    [SerializeField] private float airMovementMultiplier = 0.7f;
 
     [Header("Jump")]
     [SerializeField] private float jumpForce = 12f;
@@ -20,6 +21,7 @@ public class PlayerData : ScriptableObject
     public float Acceleration => acceleration;
     public float Deceleration => deceleration;
     public float RotationSpeed => rotationSpeed;
+    public float AirMovementMultiplier => airMovementMultiplier;
 
     public float JumpForce => jumpForce;
     public float JumpHoldForce => jumpHoldForce;
