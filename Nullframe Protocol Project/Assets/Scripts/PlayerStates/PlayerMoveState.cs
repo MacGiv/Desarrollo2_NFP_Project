@@ -17,10 +17,17 @@ public class PlayerMoveState : PlayerGroundedState
             return;
         }
 
-        // If stopped moveing, change to IdleState
+        // If stopped moving, change to IdleState
         if (core.Input.MovementInput.magnitude <= 0.1f)
         {
             stateMachine.ChangeState(core.IdleState);
+        }
+
+        // If attack pressed Change to Attack 
+        if (core.Input.AttackPressed)
+        {
+            stateMachine.ChangeState(core.AttackState);
+            return;
         }
     }
 
