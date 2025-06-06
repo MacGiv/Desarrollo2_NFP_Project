@@ -15,7 +15,7 @@ public class AttackAnimationEventHandler : MonoBehaviour
 
     public void OnAttackAnimationEnd()
     {
-        Debug.Log("Animation Ended");
+        //Debug.Log("Animation Ended");
         core.AttackState.NotifyAttackAnimationEnded();
     }
 }
