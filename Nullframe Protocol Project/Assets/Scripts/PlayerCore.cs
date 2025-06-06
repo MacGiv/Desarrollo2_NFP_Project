@@ -16,12 +16,14 @@ public class PlayerCore : MonoBehaviour
     private PlayerMoveState state_move;
     private PlayerJumpState state_jump;
     private PlayerInAirState state_inAir;
+    private PlayerAttackState state_attack;
 
     // Properties (for public access)
     public PlayerIdleState IdleState => state_idle;
     public PlayerMoveState MoveState => state_move;
     public PlayerJumpState JumpState => state_jump;
     public PlayerInAirState InAirState => state_inAir;
+    public PlayerAttackState AttackState => state_attack;
 
     public PlayerInputHandler Input => input;
     public PlayerMovement Movement => movement;
@@ -43,6 +45,7 @@ public class PlayerCore : MonoBehaviour
         state_move = new PlayerMoveState(this, stateMachine, data, "isMoving");
         state_jump = new PlayerJumpState(this, stateMachine, data, "jump");
         state_inAir = new PlayerInAirState(this, stateMachine, data, "inAir");
+        state_attack = new PlayerAttackState(this, stateMachine, data, "attack");
 
         stateMachine.Initialize(state_idle);
     }

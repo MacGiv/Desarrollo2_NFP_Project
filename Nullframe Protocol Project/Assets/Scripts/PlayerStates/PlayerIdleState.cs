@@ -22,6 +22,13 @@ public class PlayerIdleState : PlayerGroundedState
         {
             stateMachine.ChangeState(core.MoveState);
         }
+
+        //TODO: Change to Attack 
+        if (core.Input.AttackPressed)
+        {
+            stateMachine.ChangeState(core.AttackState);
+            return;
+        }
     }
 
 }

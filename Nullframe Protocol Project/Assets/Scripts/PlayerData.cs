@@ -17,6 +17,10 @@ public class PlayerData : ScriptableObject
     [SerializeField] private float coyoteTime = 0.2f;
     [SerializeField] private int maxJumps = 2;
 
+    [Header("Attack")]
+    [SerializeField] private float attackMovementForce = 10f;
+    [SerializeField] private float attackDuration_1 = 0.45f;
+
     public float MoveSpeed => moveSpeed;
     public float Acceleration => acceleration;
     public float Deceleration => deceleration;
@@ -28,4 +32,7 @@ public class PlayerData : ScriptableObject
     public float JumpHoldTime => jumpHoldTime;
     public float CoyoteTime => coyoteTime;
     public int MaxJumps => maxJumps;
+
+    public float AttackMovementForce => attackMovementForce;
+    public float AttackDuration_1 => attackDuration_1;
 }

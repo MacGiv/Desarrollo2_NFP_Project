@@ -135,4 +135,18 @@ public class PlayerMovement : MonoBehaviour
             jumpHoldTimer = data.JumpHoldTime;
         }
     }
+
+    public void StopMovement()
+    {
+        rb.linearVelocity = Vector3.zero;
+    }
+
+    public void AttackMove(float force, Vector3 lookDir)
+    {
+        StopMovement();
+        Vector3 attackDir = lookDir;
+        rb.AddForce(attackDir * force, ForceMode.Impulse);
+    }
+
+
 }
