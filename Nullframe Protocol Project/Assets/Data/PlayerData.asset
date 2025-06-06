@@ -22,5 +22,4 @@ MonoBehaviour:
   jumpHoldTime: 0.5
   coyoteTime: 0.2
   maxJumps: 2
-  attackMovementForce: 10
-  attackDuration_1: 0.45
+  attackMovementForce: 5

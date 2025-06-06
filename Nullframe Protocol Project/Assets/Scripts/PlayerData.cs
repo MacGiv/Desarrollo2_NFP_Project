@@ -19,7 +19,6 @@ public class PlayerData : ScriptableObject
 
     [Header("Attack")]
     [SerializeField] private float attackMovementForce = 10f;
-    [SerializeField] private float attackDuration_1 = 0.45f;
 
     public float MoveSpeed => moveSpeed;
     public float Acceleration => acceleration;
@@ -34,5 +33,4 @@ public class PlayerData : ScriptableObject
     public int MaxJumps => maxJumps;
 
     public float AttackMovementForce => attackMovementForce;
-    public float AttackDuration_1 => attackDuration_1;
 }
