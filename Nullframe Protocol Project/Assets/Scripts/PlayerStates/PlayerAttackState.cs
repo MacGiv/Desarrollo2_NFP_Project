@@ -37,13 +37,13 @@ public class PlayerAttackState : PlayerGroundedState
         if (!hasMoved)
         {
             hasMoved = true;
-            core.Movement.AttackMove(data.AttackMovementForce, core.Movement.GetCameraRelativeInput());
+            core.Movement.AttackMove(data.AttackMovementForce, core.transform.forward);
+            Debug.Log("Attack State Movement!");
         }
     }
 
     public void NotifyAttackAnimationEnded()
     {
         animationFinished = true;
-        Debug.Log("Attack State Notified!");
     }
 }
