@@ -1,25 +1,35 @@
 using UnityEngine;
+using System;
 
 public class PlayerHealthSystem : MonoBehaviour
 {
     [SerializeField] private int maxHealth = 100;
-
     [SerializeField] private int currentHealth;
+
     private bool isGodMode = false;
     private bool isDead = false;
+
+    public int MaxHealth => maxHealth;
+
+    // Delegate to notify damage
+    public event Action<int, int> OnHealthChanged; // (current, max)
+    public event Action OnDeath;
 
     private void Awake()
     {
         currentHealth = maxHealth;
+        NotifyHealthChanged();
     }
 
     public void TakeDamage(int amount)
     {
-        if (!isGodMode || !isDead)
+        if (!isGodMode && !isDead)
         {
             currentHealth -= amount;
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-            // Debug.Log("Player took damage. Amount: " + amount);
+
+            NotifyHealthChanged();
+
             if (currentHealth <= 0)
             {
                 Die();
@@ -33,6 +43,8 @@ public class PlayerHealthSystem : MonoBehaviour
         {
             currentHealth += amount;
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+
+            NotifyHealthChanged();
         }
     }
 
@@ -44,7 +56,12 @@ public class PlayerHealthSystem : MonoBehaviour
     private void Die()
     {
         isDead = true;
-        // Debug.Log("Player has died.");
-        // TODO: Reiniciar escena
+        OnDeath?.Invoke();
+        // TODO: Reiniciar escena, mostrar pantalla de derrota, etc.
+    }
+
+    private void NotifyHealthChanged()
+    {
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
     }
 }
