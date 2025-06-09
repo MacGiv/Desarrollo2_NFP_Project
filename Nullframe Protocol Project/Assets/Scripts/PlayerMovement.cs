@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -11,10 +12,11 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInputHandler input;
     private PlayerData data;
     private PlayerCore core;
+    private PlayerGroundChecker groundChecker;
 
     private Vector3 currentVelocity;
     private float jumpHoldTimer;
-    private int jumpCount;
+    public int jumpCount;
     private float coyoteTimer;
     private bool jumpedThisFrame = false;
 
@@ -31,13 +33,16 @@ public class PlayerMovement : MonoBehaviour
         data = playerData;
     }
 
+    public float GetYVelocity()
+    {
+        return rb.linearVelocity.y;
+    }
+
     /// <summary>
     /// Update grounded bool
     /// </summary>
     public void UpdateGrounded(bool grounded)
     {
-        isGrounded = grounded;
-
         if (jumpedThisFrame) 
         {
             jumpedThisFrame = false;
@@ -117,8 +122,8 @@ public class PlayerMovement : MonoBehaviour
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         rb.AddForce(Vector3.up * data.JumpForce, ForceMode.Impulse);
         jumpHoldTimer = 0f;
-        // Avoid ground check resetting the jump after jumping from the ground
         jumpCount++;
+        // Avoid ground check resetting the jump after jumping from the ground
         jumpedThisFrame = true;
     }
 

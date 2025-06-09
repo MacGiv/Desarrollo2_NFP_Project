@@ -46,8 +46,8 @@ public class PlayerCore : MonoBehaviour
         // Initialize States
         state_idle = new PlayerIdleState(this, stateMachine, data, "idle");
         state_move = new PlayerMoveState(this, stateMachine, data, "isMoving");
-        state_jump = new PlayerJumpState(this, stateMachine, data, "jump");
-        state_inAir = new PlayerInAirState(this, stateMachine, data, "inAir");
+        state_jump = new PlayerJumpState(this, stateMachine, data, "jumpingUp");
+        state_inAir = new PlayerInAirState(this, stateMachine, data, "falling");
         state_attack = new PlayerAttackState(this, stateMachine, data, "attack");
 
         stateMachine.Initialize(state_idle);
