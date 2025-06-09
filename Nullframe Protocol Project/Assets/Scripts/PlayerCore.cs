@@ -33,6 +33,9 @@ public class PlayerCore : MonoBehaviour
 
     private void Awake()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
         input = GetComponent<PlayerInputHandler>();
         groundChecker = GetComponent<PlayerGroundChecker>();
         movement = GetComponent<PlayerMovement>();
