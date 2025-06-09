@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using TMPro.Examples;
 
 public class PauseManager : MonoBehaviour
 {
@@ -8,11 +9,13 @@ public class PauseManager : MonoBehaviour
     public bool IsPaused { get; private set; }
 
     private PlayerInputHandler playerInput;
+    private CameraController cameraController;
 
     private void OnEnable()
     {
         // Subrscribe PlayerInputHandler to Pause Action to prevent Moving while on Pause
         playerInput = FindFirstObjectByType<PlayerInputHandler>();
+        cameraController = FindFirstObjectByType<CameraController>();
         PauseInputHandler.OnPausePressed += TogglePause;
     }
 
@@ -31,6 +34,7 @@ public class PauseManager : MonoBehaviour
 
     private void Pause()
     {
+        cameraController.enabled = false;
         playerInput.enabled = false;
         IsPaused = true;
         Time.timeScale = 0f;
@@ -44,6 +48,7 @@ public class PauseManager : MonoBehaviour
 
     private void Resume()
     {
+        cameraController.enabled = true;
         playerInput.enabled = true;
         IsPaused = false;
         Time.timeScale = 1f;
