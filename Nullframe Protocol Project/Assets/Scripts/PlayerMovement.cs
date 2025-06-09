@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 currentVelocity;
     private float jumpHoldTimer;
-    public int jumpCount;
+    [SerializeField] private int jumpCount;
     private float coyoteTimer;
     private bool jumpedThisFrame = false;
 
@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        if (isGrounded)
+        if (grounded)
         {
             coyoteTimer = data.CoyoteTime;
             jumpCount = 0;

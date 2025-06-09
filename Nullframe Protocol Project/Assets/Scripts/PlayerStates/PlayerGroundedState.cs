@@ -18,8 +18,7 @@ public abstract class PlayerGroundedState : PlayerState
 
     public override void PhysicsUpdate()
     {
-        core.GroundChecker.CheckGround();
-        core.Movement.UpdateGrounded(core.GroundChecker.IsGrounded);
+        core.Movement.UpdateGrounded(core.GroundChecker.CheckGround());
     }
 
 }

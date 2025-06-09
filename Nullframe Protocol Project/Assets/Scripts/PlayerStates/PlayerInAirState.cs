@@ -8,6 +8,7 @@ public class PlayerInAirState : PlayerState
     public override void LogicUpdate()
     {
         // If Landed, change to IdleState
+        core.Movement.UpdateGrounded(core.GroundChecker.CheckGround());
         if (core.GroundChecker.IsGrounded)
         {
             stateMachine.ChangeState(core.IdleState);
@@ -24,8 +25,7 @@ public class PlayerInAirState : PlayerState
 
     public override void PhysicsUpdate()
     {
-        core.GroundChecker.CheckGround();
-        core.Movement.UpdateGrounded(core.GroundChecker.IsGrounded);
+        core.Movement.UpdateGrounded(core.GroundChecker.CheckGround());
 
         Vector3 moveDir = core.Movement.GetCameraRelativeInput();
         core.Movement.Move(moveDir); 
