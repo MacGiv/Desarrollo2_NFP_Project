@@ -2,8 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
-/// Controla la rotación orbital de la cámara alrededor del personaje.
-/// Basado en input de mouse/joystick y orienta al personaje según la rotación Y.
+/// Control rotation around the player
 /// </summary>
 public class CameraController : MonoBehaviour
 {
@@ -25,8 +24,8 @@ public class CameraController : MonoBehaviour
     [Header("Input")]
     [SerializeField] private InputActionReference lookAction;
 
-    private float xRot; // vertical
-    private float yRot; // horizontal
+    private float xRot; // Vertical
+    private float yRot; // Horizontal
 
     private void OnEnable()
     {
@@ -58,7 +57,7 @@ public class CameraController : MonoBehaviour
     }
 
     /// <summary>
-    /// Rotación Y para que PlayerMovement pueda alinear el movimiento con la cámara.
+    /// Rotation Y to align PlayerMovement with the camera.
     /// </summary>
     public Quaternion YRotation => Quaternion.Euler(0, yRot, 0);
 }
