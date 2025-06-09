@@ -7,13 +7,13 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class CameraController : MonoBehaviour
 {
-    [Header("Referencias")]
+    [Header("Cached")]
     [SerializeField] private Transform target;
 
     [Header("Offset")]
     [SerializeField] private Vector3 offset = new Vector3(0, 2, -5);
 
-    [Header("Rotación")]
+    [Header("Rotation")]
     [SerializeField] private float xMin = -40f;
     [SerializeField] private float xMax = 70f;
 

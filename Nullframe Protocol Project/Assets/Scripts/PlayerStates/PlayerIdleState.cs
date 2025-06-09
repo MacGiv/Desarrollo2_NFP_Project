@@ -7,8 +7,8 @@ public class PlayerIdleState : PlayerGroundedState
 
     public override void LogicUpdate()
     {
-        base.LogicUpdate(); // Check if Player left the ground
-
+        // GroundCheck
+        base.LogicUpdate();
         // Change to Jump
         if (core.Input.JumpPressed && core.Movement.CanJump())
         {
@@ -21,9 +21,10 @@ public class PlayerIdleState : PlayerGroundedState
         if (core.Input.MovementInput.magnitude > 0.1f)
         {
             stateMachine.ChangeState(core.MoveState);
+            return;
         }
 
-        // Change to Attack 
+        // Change to Attack
         if (core.Input.AttackPressed)
         {
             stateMachine.ChangeState(core.AttackState);
