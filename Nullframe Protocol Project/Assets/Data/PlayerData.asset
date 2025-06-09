@@ -17,8 +17,8 @@ MonoBehaviour:
   deceleration: 25
   rotationSpeed: 20
   airMovementMultiplier: 0.6
-  jumpForce: 25
-  jumpHoldForce: 25
+  jumpForce: 45
+  jumpHoldForce: 45
   jumpHoldTime: 0.5
   coyoteTime: 0.2
   maxJumps: 2
