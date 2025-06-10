@@ -12,15 +12,12 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInputHandler input;
     private PlayerData data;
     private PlayerCore core;
-    private PlayerGroundChecker groundChecker;
 
     private Vector3 currentVelocity;
     private float jumpHoldTimer;
-    [SerializeField] private int jumpCount;
+    private int jumpCount;
     private float coyoteTimer;
     private bool jumpedThisFrame = false;
-
-    private bool isGrounded;
 
     private void Awake()
     {
@@ -39,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     /// <summary>
-    /// Update grounded bool
+    /// Update grounded bool and handles Coyote's timer. requires
     /// </summary>
     public void UpdateGrounded(bool grounded)
     {

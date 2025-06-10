@@ -25,8 +25,6 @@ public class PlayerInAirState : PlayerState
 
     public override void PhysicsUpdate()
     {
-        core.Movement.UpdateGrounded(core.GroundChecker.CheckGround());
-
         Vector3 moveDir = core.Movement.GetCameraRelativeInput();
         core.Movement.Move(moveDir); 
         core.Movement.ApplyRotation(moveDir);
