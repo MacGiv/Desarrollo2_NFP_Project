@@ -1,21 +1,26 @@
 using UnityEngine;
 
-
 /// <summary>
-/// Handles animation evets fired from attacks
+/// Handles animation events fired from attacks
 /// </summary>
 public class AttackAnimationEventHandler : MonoBehaviour
 {
     private PlayerCore core;
+    private PlayerCombatHandler combatHandler;
 
     private void Awake()
     {
         core = GetComponentInParent<PlayerCore>();
+        combatHandler = core.GetComponent<PlayerCombatHandler>();
     }
 
     public void OnAttackAnimationEnd()
     {
-        //Debug.Log("Animation Ended");
         core.AttackState.NotifyAttackAnimationEnded();
+    }
+
+    public void OnAttackFrame()
+    {
+        combatHandler.PerformAttack();
     }
 }

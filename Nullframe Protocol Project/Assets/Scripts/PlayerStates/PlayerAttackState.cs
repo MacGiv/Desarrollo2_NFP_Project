@@ -3,7 +3,8 @@ using UnityEngine;
 public class PlayerAttackState : PlayerGroundedState
 {
     protected bool hasMoved = false;
-    private bool animationFinished = false;
+    protected bool hasAtttacked = false;
+    protected bool animationFinished = false;
 
     public PlayerAttackState(PlayerCore core, PlayerStateMachine stateMachine, PlayerData data, string animName)
         : base(core, stateMachine, data, animName) { }
@@ -45,5 +46,10 @@ public class PlayerAttackState : PlayerGroundedState
     public void NotifyAttackAnimationEnded()
     {
         animationFinished = true;
+    }
+
+    public void NotifyAttackAnimationAttack() 
+    {
+        hasAtttacked = true;
     }
 }

@@ -9,6 +9,7 @@ public class PlayerData : ScriptableObject
     [SerializeField] private float deceleration = 25f;
     [SerializeField] private float rotationSpeed = 10f;
     [SerializeField] private float airMovementMultiplier = 0.7f;
+    [SerializeField] private float moveInputThreshold = 0.3f;
 
     [Header("Jump")]
     [SerializeField] private float jumpForce = 12f;
@@ -19,12 +20,18 @@ public class PlayerData : ScriptableObject
 
     [Header("Attack")]
     [SerializeField] private float attackMovementForce = 10f;
+    [SerializeField] private float attackRange = 2f;
+    [SerializeField] private float attackRadius = 1f;
+    [SerializeField] private int attackDamage = 20;
+    [SerializeField] private float attackModelHeightModifier = 0.5f;
 
     public float MoveSpeed => moveSpeed;
     public float Acceleration => acceleration;
     public float Deceleration => deceleration;
     public float RotationSpeed => rotationSpeed;
     public float AirMovementMultiplier => airMovementMultiplier;
+
+    public float MoveInputThreshold => moveInputThreshold;
 
     public float JumpForce => jumpForce;
     public float JumpHoldForce => jumpHoldForce;
@@ -33,4 +40,9 @@ public class PlayerData : ScriptableObject
     public int MaxJumps => maxJumps;
 
     public float AttackMovementForce => attackMovementForce;
+    public float AttackRadius => attackRadius;
+    public float AttackRange => attackRange;
+    public int AttackDamage => attackDamage;
+    public float AttackModelHeightModifier => attackModelHeightModifier;
+
 }

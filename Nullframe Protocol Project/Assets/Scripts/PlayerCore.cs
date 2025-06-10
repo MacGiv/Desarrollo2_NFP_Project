@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class PlayerCore : MonoBehaviour
 {
-    [SerializeField] private PlayerData data;
 
     // Cached Components
+    [SerializeField] private PlayerData data;
     private PlayerInputHandler input;
     private PlayerGroundChecker groundChecker;
     private PlayerMovement movement;
@@ -24,7 +24,7 @@ public class PlayerCore : MonoBehaviour
     public PlayerJumpState JumpState => state_jump;
     public PlayerInAirState InAirState => state_inAir;
     public PlayerAttackState AttackState => state_attack;
-
+    public PlayerData Data => data;
     public PlayerInputHandler Input => input;
     public PlayerMovement Movement => movement;
     public PlayerGroundChecker GroundChecker => groundChecker;

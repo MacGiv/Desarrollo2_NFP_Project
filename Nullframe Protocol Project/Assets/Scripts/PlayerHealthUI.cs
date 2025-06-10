@@ -9,7 +9,7 @@ public class PlayerHealthUI : MonoBehaviour
     
     private void Start()
     {
-        healthSystem = Object.FindFirstObjectByType<PlayerHealthSystem>();
+        healthSystem = FindFirstObjectByType<PlayerHealthSystem>();
 
         UpdateHealthUI(healthSystem.MaxHealth, healthSystem.MaxHealth);
 

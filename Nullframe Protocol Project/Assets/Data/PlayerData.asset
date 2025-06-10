@@ -17,9 +17,14 @@ MonoBehaviour:
   deceleration: 25
   rotationSpeed: 20
   airMovementMultiplier: 0.6
-  jumpForce: 45
-  jumpHoldForce: 45
+  moveInputThreshold: 0.3
+  jumpForce: 40
+  jumpHoldForce: 40
   jumpHoldTime: 0.5
   coyoteTime: 0.2
   maxJumps: 2
   attackMovementForce: 5
+  attackRange: 1.3
+  attackRadius: 1.2
+  attackDamage: 20
+  attackModelHeightModifier: 0.5
