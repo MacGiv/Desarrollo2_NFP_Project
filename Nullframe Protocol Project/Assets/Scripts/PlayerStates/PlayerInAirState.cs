@@ -11,7 +11,14 @@ public class PlayerInAirState : PlayerState
         core.Movement.UpdateGrounded(core.GroundChecker.CheckGround());
         if (core.GroundChecker.IsGrounded)
         {
-            stateMachine.ChangeState(core.IdleState);
+            if (core.Input.MovementInput.magnitude > data.MoveInputThreshold)
+            {
+                stateMachine.ChangeState(core.MoveState);
+            }
+            else
+            {
+                stateMachine.ChangeState(core.IdleState);
+            }
             return;
         }
 
