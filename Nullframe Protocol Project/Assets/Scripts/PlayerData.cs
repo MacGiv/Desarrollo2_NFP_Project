@@ -25,6 +25,11 @@ public class PlayerData : ScriptableObject
     [SerializeField] private int attackDamage = 20;
     [SerializeField] private float attackModelHeightModifier = 0.5f;
 
+    [Header("Combat")]
+    [SerializeField] private float comboResetTime = 1.0f;
+    [SerializeField] private int comboMaxLength = 4;
+
+
     public float MoveSpeed => moveSpeed;
     public float Acceleration => acceleration;
     public float Deceleration => deceleration;
@@ -45,4 +50,6 @@ public class PlayerData : ScriptableObject
     public int AttackDamage => attackDamage;
     public float AttackModelHeightModifier => attackModelHeightModifier;
 
+    public float ComboResetTime => comboResetTime;
+    public int ComboMaxLength => comboMaxLength;
 }

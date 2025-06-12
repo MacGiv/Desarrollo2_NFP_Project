@@ -10,6 +10,7 @@ public class PlayerCore : MonoBehaviour
     private PlayerMovement movement;
     private PlayerStateMachine stateMachine;
     private Animator animator;
+    private PlayerComboHandler comboHandler;
 
     // State Variables
     private PlayerIdleState state_idle;
@@ -30,6 +31,7 @@ public class PlayerCore : MonoBehaviour
     public PlayerGroundChecker GroundChecker => groundChecker;
     public Animator Animator => animator;
     public PlayerStateMachine StateMachine => stateMachine;
+    public PlayerComboHandler ComboHandler => comboHandler;
 
     private void Awake()
     {
@@ -42,6 +44,7 @@ public class PlayerCore : MonoBehaviour
         movement.SetData(data);
         stateMachine = new PlayerStateMachine();
         animator = GetComponentInChildren<Animator>();
+        comboHandler = GetComponent<PlayerComboHandler>();
 
         // Initialize States
         state_idle = new PlayerIdleState(this, stateMachine, data, "idle");

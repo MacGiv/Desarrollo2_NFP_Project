@@ -12,6 +12,10 @@ public class PlayerAttackState : PlayerGroundedState
     public override void Enter()
     {
         base.Enter();
+
+        core.ComboHandler.AdvanceCombo();
+        core.Animator.SetFloat("comboTracker", core.ComboHandler.CurrentComboIndex);
+
         hasMoved = false;
         animationFinished = false;
     }
@@ -23,10 +27,20 @@ public class PlayerAttackState : PlayerGroundedState
         // Change state if animation is finished
         if (animationFinished)
         {
+            // TODO: attack input buffer
+            // if (core.Input.AttackPressed)
+            // {
+            //     stateMachine.ChangeState(core.AttackState);
+            // }
+            // else 
             if (core.Input.MovementInput.magnitude > 0.1f)
+            {
                 stateMachine.ChangeState(core.MoveState);
+            }
             else
+            {
                 stateMachine.ChangeState(core.IdleState);
+            }
         }
     }
 
@@ -39,13 +53,17 @@ public class PlayerAttackState : PlayerGroundedState
         {
             hasMoved = true;
             core.Movement.AttackMove(data.AttackMovementForce, core.transform.forward);
-            Debug.Log("Attack State Movement!");
+            // Debug.Log("Attack State Movement!");
         }
     }
 
     public void NotifyAttackAnimationEnded()
     {
         animationFinished = true;
+        if (core.ComboHandler.CurrentComboIndex >= core.Data.ComboMaxLength)
+        {
+            core.ComboHandler.ResetCombo();
+        }
     }
 
     public void NotifyAttackAnimationAttack() 

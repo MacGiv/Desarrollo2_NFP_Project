@@ -2,8 +2,11 @@ using UnityEngine;
 
 public class PlayerJumpState : PlayerState
 {
+    protected bool animationFinished = false;
+
     public PlayerJumpState(PlayerCore core, PlayerStateMachine stateMachine, PlayerData data, string animName) : base(core, stateMachine, data, animName)
     { }
+
     public override void Enter()
     {
         base.Enter();
@@ -23,6 +26,9 @@ public class PlayerJumpState : PlayerState
         core.Movement.HoldJump(core.Input.JumpHeld);
     }
 
-
+    public void NotifyAttackAnimationEnded()
+    {
+        animationFinished = true;
+    }
 
 }
