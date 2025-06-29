@@ -23,4 +23,10 @@ public class AttackAnimationEventHandler : MonoBehaviour
     {
         combatHandler.PerformAttack();
     }
+
+    public void OnAttackInputWindowStart()
+    {
+        core.AttackState.NotifyAttackInputWindowStart();
+    }
+
 }

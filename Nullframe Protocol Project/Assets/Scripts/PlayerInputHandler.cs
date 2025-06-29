@@ -13,13 +13,22 @@ public class PlayerInputHandler : MonoBehaviour
 
     [Header("Jump Buffer")]
     [SerializeField] private float jumpBufferTime = 0.15f;
+    private float jumpBufferTimer;
+
+    [Header("Attack Buffer")]
+    [SerializeField] private float attackBufferTime = 0.3f;
+    private float attackBufferTimer;
+
+
 
     public Vector2 MovementInput { get; private set; }
     public bool JumpHeld { get; private set; }
     public bool JumpPressed => jumpBufferTimer > 0f;
     public bool AttackPressed { get; private set; }
+    public bool BufferedAttackPressed => attackBufferTimer > 0f;
+    public bool NewAttackInput { get; private set; }
 
-    private float jumpBufferTimer;
+
 
     private void OnEnable()
     {
@@ -37,11 +46,15 @@ public class PlayerInputHandler : MonoBehaviour
             jumpBufferTimer = jumpBufferTime;
             JumpHeld = true;
         };
-
         jumpAction.action.canceled += ctx => JumpHeld = false;
 
         // Attack
-        attackAction.action.started += ctx => AttackPressed = true;
+        attackAction.action.started += ctx =>
+        {
+            AttackPressed = true;
+            attackBufferTimer = attackBufferTime;
+            NewAttackInput = true;
+        };
         attackAction.action.canceled += ctx => AttackPressed = false;
 
     }
@@ -60,10 +73,23 @@ public class PlayerInputHandler : MonoBehaviour
         {
             jumpBufferTimer -= Time.deltaTime;
         }
+
+        // Timer of attack buffer
+        if (attackBufferTimer > 0f)
+        {
+            attackBufferTimer -= Time.deltaTime;
+        }
+
+        NewAttackInput = false;  // Clean attack input
     }
 
     public void ResetJumpBuffer()
     {
         jumpBufferTimer = 0f;
+    }
+
+    public void ResetAttackBuffer()
+    {
+        attackBufferTimer = 0f;
     }
 }

@@ -3,8 +3,11 @@ using UnityEngine;
 public class PlayerAttackState : PlayerGroundedState
 {
     protected bool hasMoved = false;
-    protected bool hasAtttacked = false;
+    protected bool hasAttacked = false; 
     protected bool animationFinished = false;
+
+    private bool canAcceptNextAttack = false;
+    private bool attackBufferedDuringWindow = false;
 
     public PlayerAttackState(PlayerCore core, PlayerStateMachine stateMachine, PlayerData data, string animName)
         : base(core, stateMachine, data, animName) { }
@@ -12,28 +15,30 @@ public class PlayerAttackState : PlayerGroundedState
     public override void Enter()
     {
         base.Enter();
-
-        core.ComboHandler.AdvanceCombo();
-        core.Animator.SetFloat("comboTracker", core.ComboHandler.CurrentComboIndex);
+        core.Animator.SetInteger("comboStep", core.ComboHandler.CurrentComboIndex);
 
         hasMoved = false;
         animationFinished = false;
+        canAcceptNextAttack = false;
+        attackBufferedDuringWindow = false;
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
+
         // Change state if animation is finished
         if (animationFinished)
         {
-            // TODO: attack input buffer
-            // if (core.Input.AttackPressed)
-            // {
-            //     stateMachine.ChangeState(core.AttackState);
-            // }
-            // else 
-            if (core.Input.MovementInput.magnitude > 0.1f)
+            Debug.Log("Animation finished! " + animationFinished);
+            if (attackBufferedDuringWindow && core.ComboHandler.CurrentComboIndex < core.Data.ComboMaxLength)
+            {
+                core.Input.ResetAttackBuffer();
+                core.ComboHandler.AdvanceCombo();
+                stateMachine.ChangeState(core.AttackState);
+            }
+            else if (core.Input.MovementInput.magnitude > 0.1f)
             {
                 stateMachine.ChangeState(core.MoveState);
             }
@@ -56,18 +61,60 @@ public class PlayerAttackState : PlayerGroundedState
             // Debug.Log("Attack State Movement!");
         }
     }
+    
+    public override void Exit()
+    {
+        if(!attackBufferedDuringWindow)
+        {
+            base.Exit();
+        }
+    }
+
+    public void NotifyAttackInputWindowStart()
+    {
+        if (core.ComboHandler.CurrentComboIndex < core.Data.ComboMaxLength)
+        {
+            canAcceptNextAttack = true;
+            attackBufferedDuringWindow = false;
+
+            if (core.Input.BufferedAttackPressed)
+            {
+                attackBufferedDuringWindow = true;
+                core.Input.ResetAttackBuffer();
+                Debug.Log("[Window] Attack buffered dentro de ventana!");
+            }
+        }
+    }
+
+    public void NotifyAttackAnimationAttack()
+    {
+        hasAttacked = true;
+
+        if (canAcceptNextAttack && core.Input.NewAttackInput)
+        {
+            attackBufferedDuringWindow = true;
+            core.Input.ResetAttackBuffer(); // Avoid multiple inputs
+        }
+
+    }
 
     public void NotifyAttackAnimationEnded()
     {
         animationFinished = true;
-        if (core.ComboHandler.CurrentComboIndex >= core.Data.ComboMaxLength)
+        core.Animator.SetBool("attack", false);
+
+        Debug.Log("[Attack Animation Ended] ComboIndex: " + core.ComboHandler.CurrentComboIndex + "Buffered: " + attackBufferedDuringWindow);
+
+        if (attackBufferedDuringWindow && core.ComboHandler.CurrentComboIndex < core.Data.ComboMaxLength)
         {
+            //core.ComboHandler.AdvanceCombo();
+            Debug.Log("[AdvanceCombo] ComboIndex is now: " + core.ComboHandler.CurrentComboIndex);
+        }
+        else
+        {
+            Debug.Log("[Combo Reset]");
             core.ComboHandler.ResetCombo();
         }
     }
 
-    public void NotifyAttackAnimationAttack() 
-    {
-        hasAtttacked = true;
-    }
 }

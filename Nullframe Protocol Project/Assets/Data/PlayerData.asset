@@ -28,5 +28,5 @@ MonoBehaviour:
   attackRadius: 1.2
   attackDamage: 20
   attackModelHeightModifier: 0.5
-  comboResetTime: 3
-  comboMaxLength: 4
+  comboResetTime: 1
+  comboMaxLength: 3

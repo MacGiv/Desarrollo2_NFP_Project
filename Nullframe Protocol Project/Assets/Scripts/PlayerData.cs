@@ -27,7 +27,7 @@ public class PlayerData : ScriptableObject
 
     [Header("Combat")]
     [SerializeField] private float comboResetTime = 1.0f;
-    [SerializeField] private int comboMaxLength = 4;
+    [SerializeField] private int comboMaxLength = 3;
 
 
     public float MoveSpeed => moveSpeed;

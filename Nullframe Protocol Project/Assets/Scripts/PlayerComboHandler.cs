@@ -4,13 +4,15 @@ public class PlayerComboHandler : MonoBehaviour
 {
     private float resetTime;
     private float comboTimer;
-    [SerializeField] private float currentComboIndex;
+    private int currentComboIndex;
 
-    public float CurrentComboIndex => currentComboIndex;
+    public int CurrentComboIndex => currentComboIndex;
 
     private void OnEnable()
     {
+        currentComboIndex = 0;
         resetTime = GetComponent<PlayerCore>().Data.ComboResetTime;
+        ResetCombo();
     }
 
     private void Update()
@@ -19,7 +21,7 @@ public class PlayerComboHandler : MonoBehaviour
         {
             comboTimer -= Time.deltaTime;
 
-            if (comboTimer <= 0f || currentComboIndex >= 3)
+            if (comboTimer <= 0f && GetComponent<PlayerCore>().StateMachine.CurrentState.GetType() != typeof(PlayerAttackState))
             {
                 ResetCombo();
             }
@@ -30,11 +32,16 @@ public class PlayerComboHandler : MonoBehaviour
     {
         currentComboIndex++;
         comboTimer = resetTime;
+        Debug.Log("AdvanceCombo() called. Index: " + currentComboIndex);
     }
 
     public void ResetCombo()
     {
-        currentComboIndex = 0;
+        currentComboIndex = 1;
         comboTimer = 0f;
+        GetComponent<PlayerCore>().Animator.SetInteger("comboStep", 1);
+        Debug.Log("Combo reseted! Index:" + currentComboIndex);
     }
+
+    public void StartComboTimer() => comboTimer = resetTime;
 }
