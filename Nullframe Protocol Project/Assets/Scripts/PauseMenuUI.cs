@@ -1,12 +1,14 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+/// <summary>
+/// Handles UI behavior during the pause menu, including resume and main menu transitions.
+/// </summary>
 public class PauseMenuUI : MonoBehaviour
 {
     [SerializeField] private GameObject pauseCanvas;
-    [SerializeField] private Button resumeButton; // First selected
+    [SerializeField] private Button resumeButton;
     [SerializeField] private string mainMenuSceneName = "MainMenu";
 
     private void OnEnable()
@@ -25,7 +27,6 @@ public class PauseMenuUI : MonoBehaviour
 
         if (isPaused)
         {
-            // Gamepad focus
             EventSystem.current.SetSelectedGameObject(resumeButton.gameObject);
         }
         else
@@ -42,7 +43,14 @@ public class PauseMenuUI : MonoBehaviour
     public void GoToMainMenu()
     {
         Time.timeScale = 1f;
-        //TODO: Scene loader async
-        SceneManager.LoadScene(mainMenuSceneName);
+
+        if (ServiceProvider.TryGetService<SceneFlowHandler>(out var flow))
+        {
+            flow.LoadSceneReplacing(mainMenuSceneName);
+        }
+        else
+        {
+            Debug.LogError("SceneFlowHandler not found in ServiceProvider.");
+        }
     }
 }
