@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48cfe719fe8ba1c4e9b8d3fe01d22bc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hazardDamage: 20
+  hazardDamage: 50
   hitParticles: {fileID: 0}
 --- !u!65 &36149988
 BoxCollider:
@@ -2001,7 +2001,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48cfe719fe8ba1c4e9b8d3fe01d22bc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hazardDamage: 20
+  hazardDamage: 50
   hitParticles: {fileID: 0}
 --- !u!1 &410087039
 GameObject:
