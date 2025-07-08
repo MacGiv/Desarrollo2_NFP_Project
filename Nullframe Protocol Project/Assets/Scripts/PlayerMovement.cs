@@ -15,9 +15,11 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 currentVelocity;
     private float jumpHoldTimer;
-    private int jumpCount;
     private float coyoteTimer;
     private bool jumpedThisFrame = false;
+    private int jumpCount;
+
+    public int JumpCount { get => jumpCount; private set => jumpCount = value; }
 
     private void Awake()
     {
@@ -49,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
         if (grounded)
         {
             coyoteTimer = data.CoyoteTime;
-            jumpCount = 0;
+            JumpCount = 0;
         }
         else
         {
@@ -111,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
 
     public bool CanJump()
     {
-        return coyoteTimer > 0f || jumpCount < data.MaxJumps;
+        return coyoteTimer > 0f || JumpCount < data.MaxJumps;
     }
 
     public void Jump()
@@ -119,7 +121,7 @@ public class PlayerMovement : MonoBehaviour
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         rb.AddForce(Vector3.up * data.JumpForce, ForceMode.Impulse);
         jumpHoldTimer = 0f;
-        jumpCount++;
+        JumpCount++;
         // Avoid ground check resetting the jump after jumping from the ground
         jumpedThisFrame = true;
     }
