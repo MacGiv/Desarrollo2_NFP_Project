@@ -27,12 +27,17 @@ public class PlayerHealthSystem : MonoBehaviour
         {
             currentHealth -= amount;
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+            
 
             NotifyHealthChanged();
 
             if (currentHealth <= 0)
             {
                 Die();
+            }
+            else if (TryGetComponent<PlayerCore>(out var core))
+            {
+                core.StateMachine.ChangeState(core.HurtState);
             }
         }
     }
@@ -57,6 +62,10 @@ public class PlayerHealthSystem : MonoBehaviour
     {
         isDead = true;
         OnDeath?.Invoke();
+        if (TryGetComponent<PlayerCore>(out var core))
+        {
+            core.StateMachine.ChangeState(core.DeathState);
+        }
         // TODO: Reiniciar escena, mostrar pantalla de derrota, etc.
     }
 

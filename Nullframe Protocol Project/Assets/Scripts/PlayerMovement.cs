@@ -152,5 +152,10 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(attackDir * force, ForceMode.Impulse);
     }
 
-
+    public void HurtMove(float force, Vector3 lookDir)
+    {
+        StopMovement();
+        Vector3 forceDir = -lookDir;
+        rb.AddForce(forceDir * force, ForceMode.Impulse);
+    }
 }

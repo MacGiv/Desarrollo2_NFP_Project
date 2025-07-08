@@ -3,12 +3,16 @@ using UnityEngine;
 public class Hazard : MonoBehaviour
 {
     [SerializeField] private int hazardDamage = 50;
-    [SerializeField] private Transform repositionPlayerPos;
+    [SerializeField] private GameObject hitParticles;
 
     private void OnTriggerEnter(Collider other)
     {
-        PlayerHealthSystem playerHp = other.gameObject.GetComponent<PlayerHealthSystem>();
-        playerHp.TakeDamage(hazardDamage);
-        other.gameObject.transform.position = repositionPlayerPos.position;
+        if (other.TryGetComponent<PlayerHealthSystem>(out var hp))
+        {
+            hp.TakeDamage(hazardDamage);
+
+            if (hitParticles != null)
+                Instantiate(hitParticles, other.transform.position, Quaternion.identity);
+        }
     }
 }

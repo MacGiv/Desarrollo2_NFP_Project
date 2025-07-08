@@ -11,13 +11,14 @@ public class PlayerCore : MonoBehaviour
     private PlayerStateMachine stateMachine;
     private Animator animator;
     private PlayerComboHandler comboHandler;
-
+    private PlayerDeathState state_death;
     // State Variables
     private PlayerIdleState state_idle;
     private PlayerMoveState state_move;
     private PlayerJumpState state_jump;
     private PlayerInAirState state_inAir;
     private PlayerAttackState state_attack;
+    private PlayerHurtState state_hurt;
 
     // Properties (for public access)
     public PlayerIdleState IdleState => state_idle;
@@ -25,6 +26,8 @@ public class PlayerCore : MonoBehaviour
     public PlayerJumpState JumpState => state_jump;
     public PlayerInAirState InAirState => state_inAir;
     public PlayerAttackState AttackState => state_attack;
+    public PlayerHurtState HurtState => state_hurt;
+    public PlayerDeathState DeathState => state_death;
     public PlayerData Data => data;
     public PlayerInputHandler Input => input;
     public PlayerMovement Movement => movement;
@@ -52,6 +55,8 @@ public class PlayerCore : MonoBehaviour
         state_jump = new PlayerJumpState(this, stateMachine, data, "jumpingUp");
         state_inAir = new PlayerInAirState(this, stateMachine, data, "falling");
         state_attack = new PlayerAttackState(this, stateMachine, data, "attack");
+        state_hurt = new PlayerHurtState(this, stateMachine, data, "hurt");
+        state_death = new PlayerDeathState(this, stateMachine, data, "death");
 
         stateMachine.Initialize(state_idle);
     }
