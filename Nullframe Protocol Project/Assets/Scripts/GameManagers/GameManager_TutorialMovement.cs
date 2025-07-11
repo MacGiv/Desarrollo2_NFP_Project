@@ -6,6 +6,7 @@ public class GameManager_TutorialMovement : MonoBehaviour
 {
     [SerializeField] private TutorialMessageUI tutorialUI;
     [SerializeField] private float delayBetweenMessages = 1.0f;
+    [SerializeField] private string nextScene = "GameScene_2";
 
     private int currentStep = 0;
 
@@ -41,7 +42,7 @@ public class GameManager_TutorialMovement : MonoBehaviour
         // Proceed to next level
         if (ServiceProvider.TryGetService<SceneFlowHandler>(out var sceneFlow))
         {
-            sceneFlow.LoadSceneReplacing("GameScene_2");
+            sceneFlow?.LoadSceneReplacing(nextScene);
         }
     }
 

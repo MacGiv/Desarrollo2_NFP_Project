@@ -7296,7 +7296,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tutorialUI: {fileID: 881887835}
   delayBeforeNextScene: 2
-  nextScene: GameScene_3
+  nextScene: MainMenu
 --- !u!1 &1637721076
 GameObject:
   m_ObjectHideFlags: 0
