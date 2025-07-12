@@ -54,4 +54,10 @@ public class PlayerData : ScriptableObject
     public float ComboResetTime => comboResetTime;
     public int ComboMaxLength => comboMaxLength;
     public float ReceiveHitForce => receiveHitForce;
+
+    public void SetMoveSpeed(float speed)
+    {
+        moveSpeed = speed;
+    }
+
 }

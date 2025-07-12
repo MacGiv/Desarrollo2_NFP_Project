@@ -30,3 +30,4 @@ MonoBehaviour:
   attackModelHeightModifier: 0.5
   comboResetTime: 1
   comboMaxLength: 3
+  receiveHitForce: 40
