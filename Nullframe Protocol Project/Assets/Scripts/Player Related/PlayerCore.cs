@@ -11,8 +11,10 @@ public class PlayerCore : MonoBehaviour
     private PlayerStateMachine stateMachine;
     private Animator animator;
     private PlayerComboHandler comboHandler;
-    private PlayerDeathState state_death;
+    private AttackDirectionResolver directionResolver;
+
     // State Variables
+    private PlayerDeathState state_death;
     private PlayerIdleState state_idle;
     private PlayerMoveState state_move;
     private PlayerJumpState state_jump;
@@ -35,6 +37,7 @@ public class PlayerCore : MonoBehaviour
     public Animator Animator => animator;
     public PlayerStateMachine StateMachine => stateMachine;
     public PlayerComboHandler ComboHandler => comboHandler;
+    public AttackDirectionResolver DirectionResolver => directionResolver;
 
     private void Awake()
     {
@@ -48,6 +51,7 @@ public class PlayerCore : MonoBehaviour
         stateMachine = new PlayerStateMachine();
         animator = GetComponentInChildren<Animator>();
         comboHandler = GetComponent<PlayerComboHandler>();
+        directionResolver = GetComponent<AttackDirectionResolver>();
 
         // Initialize States
         state_idle = new PlayerIdleState(this, stateMachine, data, "idle");

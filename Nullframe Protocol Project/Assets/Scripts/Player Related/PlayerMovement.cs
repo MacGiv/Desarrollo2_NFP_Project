@@ -93,6 +93,18 @@ public class PlayerMovement : MonoBehaviour
     }
 
     /// <summary>
+    /// Rotate the player instantly
+    /// </summary>
+    public void ApplyRotationInstant(Vector3 lookDir)
+    {
+        if (lookDir.sqrMagnitude < 0.01f) return;
+
+        Quaternion targetRot = Quaternion.LookRotation(lookDir);
+        transform.rotation = targetRot;
+    }
+
+
+    /// <summary>
     /// Return input related to camera direction
     /// </summary>
     public Vector3 GetCameraRelativeInput()

@@ -57,8 +57,10 @@ public class PlayerAttackState : PlayerGroundedState
         if (!hasMoved)
         {
             hasMoved = true;
-            core.Movement.AttackMove(data.AttackMovementForce, core.transform.forward);
-            // Debug.Log("Attack State Movement!");
+            Vector3 attackDir = core.DirectionResolver.GetAttackDirection();
+            core.Movement.AttackMove(data.AttackMovementForce, attackDir);
+            core.Movement.ApplyRotationInstant(attackDir);
+            Debug.Log("Attack State Movement!");
         }
     }
     
@@ -81,7 +83,7 @@ public class PlayerAttackState : PlayerGroundedState
             {
                 attackBufferedDuringWindow = true;
                 core.Input.ResetAttackBuffer();
-                Debug.Log("[Window] Attack buffered dentro de ventana!");
+                Debug.Log("[Window] Attack during window!");
             }
         }
     }
