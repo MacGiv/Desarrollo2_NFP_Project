@@ -38,6 +38,12 @@ public class PlayerCore : MonoBehaviour
     public PlayerStateMachine StateMachine => stateMachine;
     public PlayerComboHandler ComboHandler => comboHandler;
     public AttackDirectionResolver DirectionResolver => directionResolver;
+    public LockOnHandler LockOnHandler { get; private set; }
+
+    private void OnEnable()
+    {
+        Input.OnToggleLockOn += LockOnHandler.ToggleLockOn;
+    }
 
     private void Awake()
     {
@@ -52,6 +58,7 @@ public class PlayerCore : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         comboHandler = GetComponent<PlayerComboHandler>();
         directionResolver = GetComponent<AttackDirectionResolver>();
+        LockOnHandler = GetComponent<LockOnHandler>();
 
         // Initialize States
         state_idle = new PlayerIdleState(this, stateMachine, data, "idle");
@@ -74,4 +81,10 @@ public class PlayerCore : MonoBehaviour
     {
         stateMachine.FixedUpdate();
     }
+
+    private void OnDisable()
+    {
+        Input.OnToggleLockOn -= LockOnHandler.ToggleLockOn;
+    }
+
 }

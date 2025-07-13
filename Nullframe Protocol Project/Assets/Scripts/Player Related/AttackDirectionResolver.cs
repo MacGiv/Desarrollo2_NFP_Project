@@ -49,7 +49,6 @@ public class AttackDirectionResolver : MonoBehaviour
         camDir.y = 0f;
 
         Debug.DrawRay(transform.position + Vector3.up, camDir * 5f, Color.blue, 1f);
-        Debug.Log("Using direction: " + camDir);
 
         return camDir.normalized;
     }

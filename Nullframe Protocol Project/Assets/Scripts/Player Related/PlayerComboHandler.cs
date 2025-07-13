@@ -41,7 +41,7 @@ public class PlayerComboHandler : MonoBehaviour
     {
         currentComboIndex = 1;
         comboTimer = 0f;
-        GetComponent<PlayerCore>().Animator.SetInteger("comboStep", currentComboIndex);
+        GetComponent<PlayerCore>()?.Animator.SetInteger("comboStep", currentComboIndex);
         Debug.Log("[ResetCombo] Combo reseted!" + currentComboIndex);
     }
 

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 /// <summary>
-/// Control rotation around the player
+/// Control rotation around the player and lock on target
 /// </summary>
 public class CameraController : MonoBehaviour
 {
@@ -15,14 +15,15 @@ public class CameraController : MonoBehaviour
     [Header("Rotation")]
     [SerializeField] private float xMin = -40f;
     [SerializeField] private float xMax = 70f;
-
     [SerializeField] private float sensitivityX = 1f;
     [SerializeField] private float sensitivityY = 1f;
-
     [SerializeField] private bool invertY = false;
 
     [Header("Input")]
     [SerializeField] private InputActionReference lookAction;
+
+    [Header("Lock On Parameters")]
+    [SerializeField] private LockOnHandler lockOnHandler;
 
     private float xRot; // Vertical
     private float yRot; // Horizontal
@@ -39,6 +40,12 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
+        if (lockOnHandler != null && lockOnHandler.IsLockedOn)
+        {
+            // No aceptar input en lock-on
+            return;
+        }
+
         Vector2 input = lookAction.action.ReadValue<Vector2>(); 
         yRot += input.x * sensitivityX;
         xRot += (invertY ? -1 : 1) * input.y * sensitivityY;
@@ -48,12 +55,38 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
-        // Rotación completa
-        Quaternion rotation = Quaternion.Euler(xRot, yRot, 0f);
-        Vector3 desiredPosition = target.position + rotation * offset;
+        if (lockOnHandler != null && lockOnHandler.IsLockedOn)
+        {
+            if (lockOnHandler.CurrentTarget == null)
+            {
+                // Target Destroyed
+                lockOnHandler.ForceUnlock();
+                return;
+            }
+            Vector3 playerPos = target.position;
+            Vector3 targetPos = lockOnHandler.CurrentTarget.position;
 
-        transform.position = desiredPosition;
-        transform.LookAt(target);
+            // Direction towards taget horizontally
+            Vector3 toTarget = targetPos - playerPos;
+            toTarget.y = -lockOnHandler.LockOnYOffset; // Set Y camera pos
+            toTarget.Normalize();
+
+            // Place camera behind the player facing enemy
+            Quaternion lookRotation = Quaternion.LookRotation(toTarget);
+            Vector3 desiredPosition = playerPos - (lookRotation * offset);
+
+            transform.position = desiredPosition;
+            transform.LookAt(targetPos); // Always looking at target
+        }
+        else
+        {
+            // Modo normal (libre)
+            Quaternion rotation = Quaternion.Euler(xRot, yRot, 0f);
+            Vector3 desiredPosition = target.position + rotation * offset;
+
+            transform.position = desiredPosition;
+            transform.LookAt(target);
+        }
     }
 
     /// <summary>

@@ -6,9 +6,7 @@ public class PlayerAttackState : PlayerGroundedState
     protected bool hasAttacked = false; 
     protected bool animationFinished = false;
 
-    private bool canAcceptNextAttack = false;
     private bool attackBufferedDuringWindow = false;
-    private bool hasBufferedAttackInput = false;
     private bool inputBufferedBeforeWindow = false;
 
     public PlayerAttackState(PlayerCore core, PlayerStateMachine stateMachine, PlayerData data, string animName)
@@ -21,7 +19,6 @@ public class PlayerAttackState : PlayerGroundedState
 
         hasMoved = false;
         animationFinished = false;
-        canAcceptNextAttack = false;
         attackBufferedDuringWindow = false;
 
         inputBufferedBeforeWindow = core.Input.AttackBufferedManually;
@@ -77,8 +74,6 @@ public class PlayerAttackState : PlayerGroundedState
     {
         if (core.ComboHandler.CurrentComboIndex < core.Data.ComboMaxLength)
         {
-            canAcceptNextAttack = true;
-
             if (inputBufferedBeforeWindow || core.Input.BufferedAttackPressed)
             {
                 attackBufferedDuringWindow = true;

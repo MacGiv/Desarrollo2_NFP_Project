@@ -19,6 +19,8 @@ GameObject:
   - component: {fileID: 1450292379783313569}
   - component: {fileID: 8087262791586934907}
   - component: {fileID: 4520353876012865312}
+  - component: {fileID: 7723344078362032630}
+  - component: {fileID: 8828475743530229105}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -129,6 +131,7 @@ MonoBehaviour:
   moveAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   jumpAction: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   attackAction: {fileID: 1120369429361536294, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  lockOnAction: {fileID: 4594890122808661662, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   godModeAction: {fileID: 5767376709690204576, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   flashSpeedAction: {fileID: 272159406365166240, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   nextLevelAction: {fileID: -2717629514639897548, guid: 052faaac586de48259a63d0c4782560b, type: 3}
@@ -218,6 +221,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a328b2c56efc304e9665cdaffd944f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7723344078362032630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5912857035037703547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6577189837379a40af13ed4caf01c9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyDetectRadius: 5
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 256
+--- !u!114 &8828475743530229105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5912857035037703547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dcbe16115872034b8c4228b02ee1efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lockOnRadius: 10
+  lockOnYOffset: 5
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  cameraTransform: {fileID: 0}
 --- !u!1 &5984585312595992720
 GameObject:
   m_ObjectHideFlags: 0

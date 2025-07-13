@@ -11,6 +11,7 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] private InputActionReference moveAction;
     [SerializeField] private InputActionReference jumpAction;
     [SerializeField] private InputActionReference attackAction;
+    [SerializeField] private InputActionReference lockOnAction;
 
     [Header("Cheats")]
     [SerializeField] private InputActionReference godModeAction;
@@ -19,15 +20,17 @@ public class PlayerInputHandler : MonoBehaviour
 
     [Header("Jump Buffer")]
     [SerializeField] private float jumpBufferTime = 0.15f;
-    private float jumpBufferTimer;
 
     [Header("Attack Buffer")]
     [SerializeField] private float attackBufferTime = 0.3f;
+    
+    private float jumpBufferTimer;
     private float attackBufferTimer;
 
     public event Action OnGodModeCheat;
     public event Action OnFlashSpeedCheat;
     public event Action OnNextLevelCheat;
+    public event Action OnToggleLockOn;
 
     public Vector2 MovementInput { get; private set; }
     public bool JumpHeld { get; private set; }
@@ -54,6 +57,10 @@ public class PlayerInputHandler : MonoBehaviour
         moveAction.action.Enable();
         jumpAction.action.Enable();
         attackAction.action.Enable();
+        lockOnAction.action.Enable();
+
+        // Lock on target
+        lockOnAction.action.performed += ctx => OnToggleLockOn?.Invoke();
 
         // Movement
         moveAction.action.performed += ctx => MovementInput = ctx.ReadValue<Vector2>();
@@ -85,6 +92,7 @@ public class PlayerInputHandler : MonoBehaviour
         moveAction.action.Disable();
         jumpAction.action.Disable();
         attackAction.action.Disable();
+        lockOnAction.action.Disable();
 
         // Cheat actions disable
         godModeAction.action.Disable();
