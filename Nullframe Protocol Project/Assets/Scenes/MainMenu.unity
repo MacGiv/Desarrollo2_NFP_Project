@@ -856,6 +856,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startLevelSceneName: GameScene_1
   creditsSceneName: Credits
+  ButtonfirstSelected: {fileID: 12331369}
 --- !u!4 &1126983369
 Transform:
   m_ObjectHideFlags: 0
