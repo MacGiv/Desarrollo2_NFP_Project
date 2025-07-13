@@ -38,7 +38,7 @@ public class GameManager_TutorialCombat : MonoBehaviour
         tutorialUI.HideMessage();
     }
 
-    private void OnEnemyDied()
+    private void OnEnemyDied(Transform enemy)
     {
         _enemiesRemaining--;
 

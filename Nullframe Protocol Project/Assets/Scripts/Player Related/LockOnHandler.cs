@@ -44,7 +44,7 @@ public class LockOnHandler : MonoBehaviour
             Vector3 toEnemy = hit.transform.position - cameraTransform.position;
             float dot = Vector3.Dot(cameraTransform.forward, toEnemy.normalized);
 
-            if (dot > 0.5f) // must be in front
+            if (dot > 0.5f)
             {
                 float dist = toEnemy.sqrMagnitude;
                 if (dist < closest)
@@ -55,7 +55,27 @@ public class LockOnHandler : MonoBehaviour
             }
         }
 
-        _isLockedOn = _currentTarget != null;
+        if (_currentTarget != null)
+        {
+            _isLockedOn = true;
+
+            // Si tiene EnemyHealthSystem, registrarse para el evento
+            EnemyHealthSystem enemyHp = _currentTarget.GetComponent<EnemyHealthSystem>();
+            if (enemyHp != null)
+            {
+                enemyHp.OnDeath += OnLockedEnemyDestroyed;
+            }
+        }
+    }
+
+    private void OnLockedEnemyDestroyed(Transform enemy)
+    {
+        if (_currentTarget == enemy)
+        {
+            _currentTarget = null;
+            _isLockedOn = false;
+            Debug.Log("[LockOnHandler] Lock Off (Target destroyed via event)");
+        }
     }
 
     public void ForceUnlock()
