@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 using System;
 
 /// <summary>
-/// Capture Player's imputs and expose them to other scripts
+/// Capture Player's imputs and expose them to other scripts. It also handles jump and attack buffer's timers.
 /// </summary>
 public class PlayerInputHandler : MonoBehaviour
 {
@@ -12,6 +12,7 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] private InputActionReference jumpAction;
     [SerializeField] private InputActionReference attackAction;
     [SerializeField] private InputActionReference lockOnAction;
+    [SerializeField] private InputActionReference specialAttackAction;
 
     [Header("Cheats")]
     [SerializeField] private InputActionReference godModeAction;
@@ -24,19 +25,23 @@ public class PlayerInputHandler : MonoBehaviour
     [Header("Attack Buffer")]
     [SerializeField] private float attackBufferTime = 0.3f;
     
-    private float jumpBufferTimer;
-    private float attackBufferTimer;
+    // Timers
+    private float _jumpBufferTimer;
+    private float _attackBufferTimer;
 
+    // Events
     public event Action OnGodModeCheat;
     public event Action OnFlashSpeedCheat;
     public event Action OnNextLevelCheat;
     public event Action OnToggleLockOn;
+    public event Action OnSpecialAttackPressed;
 
+    // Properties (for public access)
     public Vector2 MovementInput { get; private set; }
     public bool JumpHeld { get; private set; }
-    public bool JumpPressed => jumpBufferTimer > 0f;
+    public bool JumpPressed => _jumpBufferTimer > 0f;
     public bool AttackPressed { get; private set; }
-    public bool BufferedAttackPressed => attackBufferTimer > 0f;
+    public bool BufferedAttackPressed => _attackBufferTimer > 0f;
     public bool NewAttackInput { get; private set; }
     public bool AttackBufferedManually { get; private set; }
 
@@ -48,6 +53,7 @@ public class PlayerInputHandler : MonoBehaviour
         godModeAction.action.Enable();
         flashSpeedAction.action.Enable();
         nextLevelAction.action.Enable();
+        specialAttackAction.action.Enable();
 
         godModeAction.action.performed += ctx => OnGodModeCheat?.Invoke();
         flashSpeedAction.action.performed += ctx => OnFlashSpeedCheat?.Invoke();
@@ -69,7 +75,7 @@ public class PlayerInputHandler : MonoBehaviour
         // Jump
         jumpAction.action.started += ctx =>
         {
-            jumpBufferTimer = jumpBufferTime;
+            _jumpBufferTimer = jumpBufferTime;
             JumpHeld = true;
         };
         jumpAction.action.canceled += ctx => JumpHeld = false;
@@ -78,12 +84,14 @@ public class PlayerInputHandler : MonoBehaviour
         attackAction.action.started += ctx =>
         {
             AttackPressed = true;
-            attackBufferTimer = attackBufferTime;
+            _attackBufferTimer = attackBufferTime;
             NewAttackInput = true;
             AttackBufferedManually = true;
         };
         attackAction.action.canceled += ctx => AttackPressed = false;
 
+        // Special Attack
+        specialAttackAction.action.performed += ctx => OnSpecialAttackPressed?.Invoke();
     }
 
     private void OnDisable()
@@ -93,6 +101,7 @@ public class PlayerInputHandler : MonoBehaviour
         jumpAction.action.Disable();
         attackAction.action.Disable();
         lockOnAction.action.Disable();
+        specialAttackAction.action.Disable();
 
         // Cheat actions disable
         godModeAction.action.Disable();
@@ -103,15 +112,15 @@ public class PlayerInputHandler : MonoBehaviour
     private void Update()
     {
         // Timer of jump buffer
-        if (jumpBufferTimer > 0f)
+        if (_jumpBufferTimer > 0f)
         {
-            jumpBufferTimer -= Time.deltaTime;
+            _jumpBufferTimer -= Time.deltaTime;
         }
 
         // Timer of attack buffer
-        if (attackBufferTimer > 0f)
+        if (_attackBufferTimer > 0f)
         {
-            attackBufferTimer -= Time.deltaTime;
+            _attackBufferTimer -= Time.deltaTime;
         }
 
         NewAttackInput = false;  // Clean attack input
@@ -119,12 +128,12 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void ResetJumpBuffer()
     {
-        jumpBufferTimer = 0f;
+        _jumpBufferTimer = 0f;
     }
 
     public void ResetAttackBuffer()
     {
-        attackBufferTimer = 0f;
+        _attackBufferTimer = 0f;
     }
 
     public bool ConsumeAttackBuffer()

@@ -249,7 +249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dcbe16115872034b8c4228b02ee1efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lockOnRadius: 10
+  lockOnRadius: 20
   lockOnYOffset: 5
   enemyLayer:
     serializedVersion: 2

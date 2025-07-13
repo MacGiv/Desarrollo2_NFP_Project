@@ -8,8 +8,6 @@ public class GameManager_TutorialMovement : MonoBehaviour
     [SerializeField] private float delayBetweenMessages = 1.0f;
     [SerializeField] private string nextScene = "GameScene_2";
 
-    private int currentStep = 0;
-
     private void Start()
     {
         StartCoroutine(HandleTutorialSequence());

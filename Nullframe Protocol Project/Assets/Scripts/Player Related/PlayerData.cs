@@ -25,18 +25,22 @@ public class PlayerData : ScriptableObject
     [SerializeField] private int attackDamage = 20;
     [SerializeField] private float attackModelHeightModifier = 0.5f;
 
+    [Header("Special Attack")]
+    [SerializeField] private int specialAttackDamage = 50;
+    [SerializeField] private float specialAttackRange = 15f;
+    [SerializeField] private float specialAttackStopDistance = 1.5f;
+    [SerializeField] private float specialAttackDuration = 0.3f;
+
     [Header("Combat")]
     [SerializeField] private float comboResetTime = 1.0f;
     [SerializeField] private int comboMaxLength = 3;
     [SerializeField] private float receiveHitForce = 40.0f;
-
 
     public float MoveSpeed => moveSpeed;
     public float Acceleration => acceleration;
     public float Deceleration => deceleration;
     public float RotationSpeed => rotationSpeed;
     public float AirMovementMultiplier => airMovementMultiplier;
-
     public float MoveInputThreshold => moveInputThreshold;
 
     public float JumpForce => jumpForce;
@@ -50,6 +54,11 @@ public class PlayerData : ScriptableObject
     public float AttackRange => attackRange;
     public int AttackDamage => attackDamage;
     public float AttackModelHeightModifier => attackModelHeightModifier;
+
+    public int SpecialAttackDamage => specialAttackDamage;
+    public float SpecialAttackRange => specialAttackRange; 
+    public float SpecialAttackStopDistance => specialAttackStopDistance;
+    public float SpecialAttackDuration => specialAttackDuration;
 
     public float ComboResetTime => comboResetTime;
     public int ComboMaxLength => comboMaxLength;

@@ -103,6 +103,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Special_Attack",
+                    "type": "Button",
+                    "id": "7cd0efcb-d40a-4933-9f2c-7cdd1dbe0a49",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -411,6 +420,28 @@
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "Lock_On",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a3f4b953-4a5e-45b5-8301-a50ccdec9391",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Special_Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "591677c9-4d96-4ed8-beda-db1d6a1be46a",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Special_Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

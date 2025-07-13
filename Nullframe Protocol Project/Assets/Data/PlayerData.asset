@@ -28,6 +28,10 @@ MonoBehaviour:
   attackRadius: 1.2
   attackDamage: 20
   attackModelHeightModifier: 0.5
+  specialAttackDamage: 50
+  specialAttackRange: 25
+  specialAttackStopDistance: 1.2
+  specialAttackDuration: 0.3
   comboResetTime: 1
   comboMaxLength: 3
   receiveHitForce: 40

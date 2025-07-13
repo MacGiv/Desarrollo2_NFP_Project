@@ -1,5 +1,7 @@
-using Unity.VisualScripting;
 using UnityEngine;
+using System;
+using System.Collections;
+
 
 /// <summary>
 /// Handles all player movement
@@ -38,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     /// <summary>
-    /// Update grounded bool and handles Coyote's timer. requires
+    /// Update grounded bool and handles Coyote's timer.
     /// </summary>
     public void UpdateGrounded(bool grounded)
     {
@@ -170,4 +172,47 @@ public class PlayerMovement : MonoBehaviour
         Vector3 forceDir = -lookDir;
         rb.AddForce(forceDir * force, ForceMode.Impulse);
     }
+
+    public void StartSpecialAttackMovement(Vector3 targetPosition, Action onComplete)
+    {
+        ApplyRotationInstant(targetPosition);
+        StartCoroutine(SpecialAttackRoutine(targetPosition, onComplete));
+    }
+
+    private IEnumerator SpecialAttackRoutine(Vector3 targetPos, Action onComplete)
+    {
+        float duration = data.SpecialAttackDuration;
+        float timer = 0f;
+
+        Vector3 start = transform.position;
+        Vector3 end = targetPos;
+
+        bool isAirborne = Mathf.Abs(end.y - start.y) > 1f;
+
+        while (timer < duration)
+        {
+            float t = timer / duration;
+
+            // Concavidad para curva aérea (si hay altura)
+            Vector3 pos;
+            if (isAirborne)
+            {
+                float arcHeight = 2.5f;
+                float yOffset = Mathf.Sin(t * Mathf.PI) * arcHeight;
+                pos = Vector3.Lerp(start, end, t) + Vector3.up * yOffset;
+            }
+            else
+            {
+                pos = Vector3.Lerp(start, end, t);
+            }
+
+            rb.MovePosition(pos); // Interpola
+            timer += Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+
+        rb.MovePosition(end);
+        onComplete?.Invoke();
+    }
+
 }

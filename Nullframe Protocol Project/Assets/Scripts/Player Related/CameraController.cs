@@ -42,7 +42,6 @@ public class CameraController : MonoBehaviour
     {
         if (lockOnHandler != null && lockOnHandler.IsLockedOn)
         {
-            // No aceptar input en lock-on
             return;
         }
 
@@ -57,13 +56,6 @@ public class CameraController : MonoBehaviour
     {
         if (lockOnHandler != null && lockOnHandler.IsLockedOn)
         {
-            // if (lockOnHandler.CurrentTarget == null)
-            // {
-            //     // Target Destroyed
-            //     lockOnHandler.ForceUnlock();
-            //     return;
-            // }
-
             Vector3 playerPos = target.position;
             Vector3 targetPos = lockOnHandler.CurrentTarget.position;
 

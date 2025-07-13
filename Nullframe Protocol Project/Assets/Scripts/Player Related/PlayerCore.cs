@@ -12,17 +12,20 @@ public class PlayerCore : MonoBehaviour
     private Animator animator;
     private PlayerComboHandler comboHandler;
     private AttackDirectionResolver directionResolver;
+    private SpecialAttackHandler specialAttackHandler;
+    private SpecialAttackChargeSystem specialAttackChargeSystem;
 
     // State Variables
-    private PlayerDeathState state_death;
     private PlayerIdleState state_idle;
     private PlayerMoveState state_move;
     private PlayerJumpState state_jump;
     private PlayerInAirState state_inAir;
     private PlayerAttackState state_attack;
     private PlayerHurtState state_hurt;
+    private PlayerDeathState state_death;
+    private PlayerSpecialAttackState state_specialAttack;
 
-    // Properties (for public access)
+    // State Properties 
     public PlayerIdleState IdleState => state_idle;
     public PlayerMoveState MoveState => state_move;
     public PlayerJumpState JumpState => state_jump;
@@ -30,6 +33,9 @@ public class PlayerCore : MonoBehaviour
     public PlayerAttackState AttackState => state_attack;
     public PlayerHurtState HurtState => state_hurt;
     public PlayerDeathState DeathState => state_death;
+    public PlayerSpecialAttackState SpecialAttackState => state_specialAttack;
+    
+    // Cached Components Properties
     public PlayerData Data => data;
     public PlayerInputHandler Input => input;
     public PlayerMovement Movement => movement;
@@ -39,10 +45,13 @@ public class PlayerCore : MonoBehaviour
     public PlayerComboHandler ComboHandler => comboHandler;
     public AttackDirectionResolver DirectionResolver => directionResolver;
     public LockOnHandler LockOnHandler { get; private set; }
+    public SpecialAttackHandler SpecialAttackHandler => specialAttackHandler;
+    public SpecialAttackChargeSystem SpecialAttackChargeSystem => specialAttackChargeSystem;
 
     private void OnEnable()
     {
         Input.OnToggleLockOn += LockOnHandler.ToggleLockOn;
+        Input.OnSpecialAttackPressed += HandleSpecialAttackInput;
     }
 
     private void Awake()
@@ -59,6 +68,8 @@ public class PlayerCore : MonoBehaviour
         comboHandler = GetComponent<PlayerComboHandler>();
         directionResolver = GetComponent<AttackDirectionResolver>();
         LockOnHandler = GetComponent<LockOnHandler>();
+        specialAttackHandler = GetComponent<SpecialAttackHandler>();
+        specialAttackChargeSystem = GetComponent<SpecialAttackChargeSystem>();
 
         // Initialize States
         state_idle = new PlayerIdleState(this, stateMachine, data, "idle");
@@ -68,6 +79,7 @@ public class PlayerCore : MonoBehaviour
         state_attack = new PlayerAttackState(this, stateMachine, data, "attack");
         state_hurt = new PlayerHurtState(this, stateMachine, data, "hurt");
         state_death = new PlayerDeathState(this, stateMachine, data, "death");
+        state_specialAttack = new PlayerSpecialAttackState(this, stateMachine, data, "special");
 
         stateMachine.Initialize(state_idle);
     }
@@ -85,6 +97,22 @@ public class PlayerCore : MonoBehaviour
     private void OnDisable()
     {
         Input.OnToggleLockOn -= LockOnHandler.ToggleLockOn;
+        Input.OnSpecialAttackPressed -= HandleSpecialAttackInput;
     }
+
+    private void HandleSpecialAttackInput()
+    {
+        if (stateMachine.CurrentState == AttackState)
+            return;
+
+        if (!specialAttackHandler.HasValidTarget())
+            return;
+
+        if (specialAttackChargeSystem.CanUseSpecial)
+        {
+            stateMachine.ChangeState(SpecialAttackState);
+        }
+    }
+
 
 }
