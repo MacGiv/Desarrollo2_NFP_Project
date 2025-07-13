@@ -8,6 +8,8 @@ public class PlayerAttackState : PlayerGroundedState
 
     private bool canAcceptNextAttack = false;
     private bool attackBufferedDuringWindow = false;
+    private bool hasBufferedAttackInput = false;
+    private bool inputBufferedBeforeWindow = false;
 
     public PlayerAttackState(PlayerCore core, PlayerStateMachine stateMachine, PlayerData data, string animName)
         : base(core, stateMachine, data, animName) { }
@@ -21,20 +23,19 @@ public class PlayerAttackState : PlayerGroundedState
         animationFinished = false;
         canAcceptNextAttack = false;
         attackBufferedDuringWindow = false;
+
+        inputBufferedBeforeWindow = core.Input.AttackBufferedManually;
     }
+
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
-
-        // Change state if animation is finished
         if (animationFinished)
         {
-            Debug.Log("Animation finished! " + animationFinished);
             if (attackBufferedDuringWindow && core.ComboHandler.CurrentComboIndex < core.Data.ComboMaxLength)
             {
-                core.Input.ResetAttackBuffer();
                 core.ComboHandler.AdvanceCombo();
                 stateMachine.ChangeState(core.AttackState);
             }
@@ -77,13 +78,13 @@ public class PlayerAttackState : PlayerGroundedState
         if (core.ComboHandler.CurrentComboIndex < core.Data.ComboMaxLength)
         {
             canAcceptNextAttack = true;
-            attackBufferedDuringWindow = false;
 
-            if (core.Input.BufferedAttackPressed)
+            if (inputBufferedBeforeWindow || core.Input.BufferedAttackPressed)
             {
                 attackBufferedDuringWindow = true;
                 core.Input.ResetAttackBuffer();
-                Debug.Log("[Window] Attack during window!");
+                core.Input.ConsumeManualAttackBuffer();
+                Debug.Log("[Window] Buffered input consumed");
             }
         }
     }
@@ -91,32 +92,26 @@ public class PlayerAttackState : PlayerGroundedState
     public void NotifyAttackAnimationAttack()
     {
         hasAttacked = true;
-
-        if (canAcceptNextAttack && core.Input.NewAttackInput)
-        {
-            attackBufferedDuringWindow = true;
-            core.Input.ResetAttackBuffer(); // Avoid multiple inputs
-        }
-
     }
+
 
     public void NotifyAttackAnimationEnded()
     {
         animationFinished = true;
         core.Animator.SetBool("attack", false);
 
-        Debug.Log("[Attack Animation Ended] ComboIndex: " + core.ComboHandler.CurrentComboIndex + "Buffered: " + attackBufferedDuringWindow);
+        Debug.Log($"[Animation Ended] ComboIndex: {core.ComboHandler.CurrentComboIndex}, Buffered: {attackBufferedDuringWindow}");
 
-        if (attackBufferedDuringWindow && core.ComboHandler.CurrentComboIndex < core.Data.ComboMaxLength)
+        if (attackBufferedDuringWindow && core.ComboHandler.CurrentComboIndex < core.Data.ComboMaxLength+1)
         {
-            //core.ComboHandler.AdvanceCombo();
-            Debug.Log("[AdvanceCombo] ComboIndex is now: " + core.ComboHandler.CurrentComboIndex);
+            core.ComboHandler.AdvanceCombo();
+            stateMachine.ChangeState(core.AttackState); // Transición inmediata al siguiente ataque
         }
         else
         {
-            Debug.Log("[Combo Reset]");
             core.ComboHandler.ResetCombo();
         }
     }
+
 
 }

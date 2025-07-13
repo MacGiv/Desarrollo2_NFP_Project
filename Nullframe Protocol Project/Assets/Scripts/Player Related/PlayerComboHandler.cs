@@ -5,13 +5,15 @@ public class PlayerComboHandler : MonoBehaviour
     private float resetTime;
     private float comboTimer;
     private int currentComboIndex;
+    private PlayerData data;
 
     public int CurrentComboIndex => currentComboIndex;
 
     private void OnEnable()
     {
         currentComboIndex = 0;
-        resetTime = GetComponent<PlayerCore>().Data.ComboResetTime;
+        data = GetComponent<PlayerCore>().Data;
+        resetTime = data.ComboResetTime;
         ResetCombo();
     }
 
@@ -30,17 +32,17 @@ public class PlayerComboHandler : MonoBehaviour
 
     public void AdvanceCombo()
     {
-        currentComboIndex++;
+        currentComboIndex = Mathf.Min(currentComboIndex + 1, data.ComboMaxLength);
         comboTimer = resetTime;
-        Debug.Log("AdvanceCombo() called. Index: " + currentComboIndex);
+        Debug.Log("[AdvanceCombo] Combo Index: " + currentComboIndex);
     }
 
     public void ResetCombo()
     {
         currentComboIndex = 1;
         comboTimer = 0f;
-        GetComponent<PlayerCore>().Animator.SetInteger("comboStep", 1);
-        Debug.Log("Combo reseted! Index:" + currentComboIndex);
+        GetComponent<PlayerCore>().Animator.SetInteger("comboStep", currentComboIndex);
+        Debug.Log("[ResetCombo] Combo reseted!" + currentComboIndex);
     }
 
     public void StartComboTimer() => comboTimer = resetTime;

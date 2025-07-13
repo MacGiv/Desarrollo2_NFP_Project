@@ -35,6 +35,7 @@ public class PlayerInputHandler : MonoBehaviour
     public bool AttackPressed { get; private set; }
     public bool BufferedAttackPressed => attackBufferTimer > 0f;
     public bool NewAttackInput { get; private set; }
+    public bool AttackBufferedManually { get; private set; }
 
 
 
@@ -72,6 +73,7 @@ public class PlayerInputHandler : MonoBehaviour
             AttackPressed = true;
             attackBufferTimer = attackBufferTime;
             NewAttackInput = true;
+            AttackBufferedManually = true;
         };
         attackAction.action.canceled += ctx => AttackPressed = false;
 
@@ -116,4 +118,22 @@ public class PlayerInputHandler : MonoBehaviour
     {
         attackBufferTimer = 0f;
     }
+
+    public bool ConsumeAttackBuffer()
+    {
+        if (BufferedAttackPressed)
+        {
+            ResetAttackBuffer();
+            return true;
+        }
+
+        return false;
+    }
+
+    public void ConsumeManualAttackBuffer()
+    {
+        AttackBufferedManually = false;
+    }
+
+
 }
