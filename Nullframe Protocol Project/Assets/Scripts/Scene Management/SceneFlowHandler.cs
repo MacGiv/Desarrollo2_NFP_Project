@@ -23,6 +23,12 @@ public class SceneFlowHandler : MonoBehaviour
 
             loader.LoadScene(sceneToLoad, additive: true);
             _currentScene = sceneToLoad;
+
+            if (ServiceProvider.TryGetService<MusicHandler>(out var music))
+            {
+                music.PlayMusicForScene(sceneToLoad);
+            }
+
         }
         else
         {

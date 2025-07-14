@@ -18,10 +18,16 @@ public class Bootstrap : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         var loader = GetComponent<SceneLoader>();
-        ServiceProvider.SetService(loader);
+        if (loader != null)
+            ServiceProvider.SetService(loader);
 
         var flowHandler = GetComponent<SceneFlowHandler>();
-        ServiceProvider.SetService(flowHandler);
+        if (flowHandler != null)
+            ServiceProvider.SetService(flowHandler);
+
+        var music = GetComponentInChildren<MusicHandler>();
+        if (music != null)
+            ServiceProvider.SetService(music);
 
         flowHandler.LoadSceneReplacing(firstScene);
     }
