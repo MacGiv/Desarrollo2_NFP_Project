@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 708a49b72754a8149b0ddc50e7d228dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuTheme: {fileID: 8300000, guid: 16cf3f398168dc54f958f12c41d05451, type: 3}
+  menuTheme: {fileID: 8300000, guid: 39862b137734b66428288d6183a5e74e, type: 3}
   level1Theme: {fileID: 8300000, guid: 1ff154fa98855d34cbc3b4a3d3398938, type: 3}
   level2Theme: {fileID: 8300000, guid: beb8122da7c81e54f892235c734f83c9, type: 3}
   level3Theme: {fileID: 8300000, guid: 20b15b4fa8ff08943aed251a8e2077eb, type: 3}
@@ -181,7 +181,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 0
   Mute: 0

@@ -67,7 +67,7 @@ public class AudioHandler : MonoBehaviour
             auraAudioSource = auraAudioSourceObj.AddComponent<AudioSource>();
             auraAudioSource.clip = auraActiveClip;
             auraAudioSource.loop = true;
-            auraAudioSource.volume = volume / 2;
+            auraAudioSource.volume = 0.25f;
             auraAudioSource.Play();
         }
     }

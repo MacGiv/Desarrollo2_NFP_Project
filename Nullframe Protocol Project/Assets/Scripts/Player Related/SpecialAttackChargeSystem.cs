@@ -23,7 +23,7 @@ public class SpecialAttackChargeSystem : MonoBehaviour
 
     private void Awake()
     {
-        currentCharges = 3;
+        currentCharges = 0;
         NotifyChange();
     }
 
