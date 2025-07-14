@@ -33,10 +33,14 @@ public class SpecialAttackChargeSystem : MonoBehaviour
         NotifyChange();
 
         ParticleEvents.RaiseChargeAbsorbed(transform.position);
+        AudioEvents.RaiseChargeAbsorbed(transform.position);
 
         // Aura only when max charges reached
         if (currentCharges == maxCharges)
+        {
             ParticleEvents.RaiseSpecialAuraChanged(true);
+            AudioEvents.RaiseAuraStateChanged(true);
+        }
     }
 
     public void ConsumeCharges()
@@ -44,6 +48,7 @@ public class SpecialAttackChargeSystem : MonoBehaviour
         currentCharges = 0;
         NotifyChange();
         ParticleEvents.RaiseSpecialAuraChanged(false);
+        AudioEvents.RaiseAuraStateChanged(false);
     }
 
 

@@ -46,6 +46,9 @@ public class PlayerSpecialAttackState : PlayerState
     {
         _hasReachedTarget = true;
         if (_target != null)
+        { 
             ParticleEvents.RaiseSpecialAttack(_target.position);
+            AudioEvents.RaiseSpecialAttack(core.transform.position);
+        }
     }
 }

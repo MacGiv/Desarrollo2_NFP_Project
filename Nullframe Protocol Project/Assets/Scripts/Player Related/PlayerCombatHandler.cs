@@ -37,6 +37,7 @@ public class PlayerCombatHandler : MonoBehaviour
             {
                 enemy.TakeDamage(playerData.AttackDamage);
                 ParticleEvents.RaisePlayerHit(origin + direction + Vector3.forward);
+                AudioEvents.RaiseAttackHit(origin + direction);
             }
         }
     }
