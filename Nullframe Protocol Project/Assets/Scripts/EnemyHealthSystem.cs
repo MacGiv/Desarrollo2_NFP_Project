@@ -26,6 +26,7 @@ public class EnemyHealthSystem : MonoBehaviour
     private void Die()
     {
         OnDeath?.Invoke(transform);
+        EnemyEvents.RaiseEnemyKilled();
         //TODO: Animation
         Destroy(gameObject);
     }

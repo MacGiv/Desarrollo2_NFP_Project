@@ -23,7 +23,7 @@ public class PlayerSpecialAttackState : PlayerState
         Vector3 directionToTarget = (_target.position - core.transform.position).normalized;
         Vector3 stopPosition = _target.position - directionToTarget * data.SpecialAttackStopDistance;
 
-        core.Movement.ApplyRotationInstant(directionToTarget);
+        core.Movement.LookAtPosition(directionToTarget, true);
         core.Animator.SetTrigger("specialAttack");
         core.Movement.StartSpecialAttackMovement(stopPosition, OnReachedTarget);
 
@@ -37,6 +37,7 @@ public class PlayerSpecialAttackState : PlayerState
         {
             Debug.Log("[SpecialAtkState] Target reached!");
             core.SpecialAttackHandler.PerformDamageOnTarget(_target);
+            core.SpecialAttackChargeSystem.ConsumeCharges();
             stateMachine.ChangeState(core.IdleState);
         }
     }

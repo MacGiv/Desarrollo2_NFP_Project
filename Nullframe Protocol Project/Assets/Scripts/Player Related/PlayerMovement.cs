@@ -4,7 +4,7 @@ using System.Collections;
 
 
 /// <summary>
-/// Handles all player movement
+/// Handles all player movement and rotation
 /// States reference this component to handle any movement/force related stuff.
 /// </summary>
 [RequireComponent(typeof(Rigidbody))]
@@ -75,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     /// <summary>
-    /// Rotate the player
+    /// Rotate the player to look at desired direction
     /// </summary>
     public void ApplyRotation(Vector3 lookDir)
     {
@@ -95,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     /// <summary>
-    /// Rotate the player instantly
+    /// Rotate the player instantly to look at desired direction
     /// </summary>
     public void ApplyRotationInstant(Vector3 lookDir)
     {
@@ -103,6 +103,20 @@ public class PlayerMovement : MonoBehaviour
 
         Quaternion targetRot = Quaternion.LookRotation(lookDir);
         transform.rotation = targetRot;
+    }
+
+    /// <summary>
+    /// Rotate the player to face a world position
+    /// </summary>
+    public void LookAtPosition(Vector3 worldPosition, bool instant = false)
+    {
+        Vector3 direction = worldPosition - transform.position;
+        direction.y = 0f;
+
+        if (instant)
+            ApplyRotationInstant(direction);
+        else
+            ApplyRotation(direction);
     }
 
 
@@ -214,5 +228,7 @@ public class PlayerMovement : MonoBehaviour
         rb.MovePosition(end);
         onComplete?.Invoke();
     }
+
+
 
 }

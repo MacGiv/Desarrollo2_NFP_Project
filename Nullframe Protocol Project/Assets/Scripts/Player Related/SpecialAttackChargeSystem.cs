@@ -11,6 +11,16 @@ public class SpecialAttackChargeSystem : MonoBehaviour
 
     public event Action<int, int> OnChargeChanged;
 
+    private void OnEnable()
+    {
+        EnemyEvents.OnEnemyKilled += HandleEnemyKilled;
+    }
+
+    private void OnDisable()
+    {
+        EnemyEvents.OnEnemyKilled -= HandleEnemyKilled;
+    }
+
     private void Awake()
     {
         currentCharges = 3;
@@ -30,4 +40,12 @@ public class SpecialAttackChargeSystem : MonoBehaviour
     }
 
     private void NotifyChange() => OnChargeChanged?.Invoke(currentCharges, maxCharges);
+
+    /// <summary>
+    /// Adds one charge when an enemy is killed.
+    /// </summary>
+    private void HandleEnemyKilled()
+    {
+        AddCharge();
+    }
 }
