@@ -31,13 +31,22 @@ public class SpecialAttackChargeSystem : MonoBehaviour
     {
         currentCharges = Mathf.Clamp(currentCharges + 1, 0, maxCharges);
         NotifyChange();
+
+        ParticleEvents.RaiseChargeAbsorbed(transform.position);
+
+        // Aura only when max charges reached
+        if (currentCharges == maxCharges)
+            ParticleEvents.RaiseSpecialAuraChanged(true);
     }
 
     public void ConsumeCharges()
     {
         currentCharges = 0;
         NotifyChange();
+        ParticleEvents.RaiseSpecialAuraChanged(false);
     }
+
+
 
     private void NotifyChange() => OnChargeChanged?.Invoke(currentCharges, maxCharges);
 

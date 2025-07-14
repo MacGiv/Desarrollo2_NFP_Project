@@ -45,5 +45,7 @@ public class PlayerSpecialAttackState : PlayerState
     private void OnReachedTarget()
     {
         _hasReachedTarget = true;
+        if (_target != null)
+            ParticleEvents.RaiseSpecialAttack(_target.position);
     }
 }

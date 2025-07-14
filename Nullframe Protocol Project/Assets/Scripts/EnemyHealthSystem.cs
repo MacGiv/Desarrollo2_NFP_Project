@@ -27,6 +27,7 @@ public class EnemyHealthSystem : MonoBehaviour
     {
         OnDeath?.Invoke(transform);
         EnemyEvents.RaiseEnemyKilled();
+        ParticleEvents.RaiseEnemyDeath(gameObject.transform.position);
         //TODO: Animation
         Destroy(gameObject);
     }

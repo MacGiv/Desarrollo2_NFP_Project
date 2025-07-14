@@ -36,6 +36,7 @@ public class PlayerCombatHandler : MonoBehaviour
             if (hit.TryGetComponent(out EnemyHealthSystem enemy))
             {
                 enemy.TakeDamage(playerData.AttackDamage);
+                ParticleEvents.RaisePlayerHit(origin + direction + Vector3.forward);
             }
         }
     }
