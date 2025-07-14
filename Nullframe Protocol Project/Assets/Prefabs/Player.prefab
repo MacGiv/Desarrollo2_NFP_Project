@@ -330,6 +330,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pfx_SpecialAura
       objectReference: {fileID: 0}
+    - target: {fileID: 1687497679442396035, guid: 6502ff2e282243444ae6e34d620daffa, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3433811967589453543, guid: 6502ff2e282243444ae6e34d620daffa, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
