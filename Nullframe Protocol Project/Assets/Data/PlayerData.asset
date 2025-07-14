@@ -26,7 +26,7 @@ MonoBehaviour:
   attackMovementForce: 5
   attackRange: 1.3
   attackRadius: 1.2
-  attackDamage: 20
+  attackDamage: 40
   attackModelHeightModifier: 0.5
   specialAttackDamage: 50
   specialAttackRange: 25
