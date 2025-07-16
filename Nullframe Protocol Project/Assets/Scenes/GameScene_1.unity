@@ -3686,7 +3686,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 881887833}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 633b58a24340d914881b8b2304e071da, type: 3}
+  m_Script: {fileID: 11500000, guid: bce2f83a4f185534c961dd1b8313dffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   messageText: {fileID: 1321888483}
@@ -5058,7 +5058,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8b126900aa4245498d2e412547d8c6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorialUI: {fileID: 881887835}
   delayBetweenMessages: 0.5
   nextScene: GameScene_2
 --- !u!1 &1637721076
@@ -5387,6 +5386,51 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1901356661
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1901356663}
+  - component: {fileID: 1901356662}
+  m_Layer: 0
+  m_Name: UIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1901356662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1901356661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 593ec38470d94814ab58ff9f0e3f9ec4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  messageUI: {fileID: 881887835}
+--- !u!4 &1901356663
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1901356661}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.48233676, y: 2.7420099, z: 1.3765095}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1951311861 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5778999336210544173, guid: 13625ae47dd35804aa5fc006997d9c1e, type: 3}
@@ -6106,7 +6150,7 @@ PrefabInstance:
     - target: {fileID: 4888595875699755144, guid: 8fe67b5c7e3ebb6449fbe4ab34a4f4ec, type: 3}
       propertyPath: tutorialUI
       value: 
-      objectReference: {fileID: 881887835}
+      objectReference: {fileID: 0}
     - target: {fileID: 6891513369329202563, guid: 8fe67b5c7e3ebb6449fbe4ab34a4f4ec, type: 3}
       propertyPath: m_Name
       value: GameManager_TM
@@ -6373,3 +6417,4 @@ SceneRoots:
   - {fileID: 261982343}
   - {fileID: 653981502}
   - {fileID: 2139932696}
+  - {fileID: 1901356663}

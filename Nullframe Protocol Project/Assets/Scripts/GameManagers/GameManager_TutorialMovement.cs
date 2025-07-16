@@ -4,7 +4,6 @@ using System.Collections;
 
 public class GameManager_TutorialMovement : MonoBehaviour
 {
-    [SerializeField] private TutorialMessageUI tutorialUI;
     [SerializeField] private float delayBetweenMessages = 1.0f;
     [SerializeField] private string nextScene = "GameScene_2";
 
@@ -44,12 +43,12 @@ public class GameManager_TutorialMovement : MonoBehaviour
         }
     }
 
-    private IEnumerator ShowMessage(string text, float duration)
+    private IEnumerator ShowMessage(string msg, float duration)
     {
-        tutorialUI.ShowMessage(text);
-        yield return new WaitForSeconds(duration);
-        tutorialUI.HideMessage();
-        yield return new WaitForSeconds(delayBetweenMessages);
+        if (ServiceProvider.TryGetService<MessageHandlerUI>(out var handler))
+        {
+            yield return handler.ShowMessageForDuration(msg, duration);
+        }
     }
 
     // Coroutines to check tutorial's action triggers
