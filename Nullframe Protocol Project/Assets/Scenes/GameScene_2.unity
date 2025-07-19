@@ -7446,9 +7446,41 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3598106879554207008, guid: ebff62deb91b5df4bb0fd72e169a04ce, type: 3}
+      propertyPath: simulationSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3598106879554207008, guid: ebff62deb91b5df4bb0fd72e169a04ce, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5965000813191163380, guid: ebff62deb91b5df4bb0fd72e169a04ce, type: 3}
       propertyPath: m_Name
       value: EnergySpot
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793853279202204465, guid: ebff62deb91b5df4bb0fd72e169a04ce, type: 3}
+      propertyPath: lengthInSec
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793853279202204465, guid: ebff62deb91b5df4bb0fd72e169a04ce, type: 3}
+      propertyPath: ShapeModule.arc.mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793853279202204465, guid: ebff62deb91b5df4bb0fd72e169a04ce, type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793853279202204465, guid: ebff62deb91b5df4bb0fd72e169a04ce, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793853279202204465, guid: ebff62deb91b5df4bb0fd72e169a04ce, type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793853279202204465, guid: ebff62deb91b5df4bb0fd72e169a04ce, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8679946054597930007, guid: ebff62deb91b5df4bb0fd72e169a04ce, type: 3}
       propertyPath: m_LocalPosition.x
