@@ -77,7 +77,7 @@ public class GameManager_TutorialMovement : MonoBehaviour
         yield return WaitForReachedCheckpoint("Checkpoint_Platforms");
         if (_currentStep == TutorialStep.Completed) yield break;
 
-        yield return ShowMessage("Avoid those lasers... be careful", 2f);
+        yield return ShowMessage("Avoid those pointy things they'll damage you", 2f);
         yield return WaitForReachedCheckpoint("Checkpoint_Traps");
         if (_currentStep == TutorialStep.Completed) yield break;
 

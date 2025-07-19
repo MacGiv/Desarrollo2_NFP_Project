@@ -46,7 +46,7 @@ public class GameManager_TutorialCombat : MonoBehaviour
     private IEnumerator HandleTutorialSequence()
     {
         yield return ShowMessage("<<SYSTEM ONLINE>>", 1.5f);
-        yield return ShowMessage("Multiple hostiles detected.", 2f);
+        yield return ShowMessage("Multiple targets detected.", 2f);
         yield return ShowMessage("Seems like they are deactivated, that's... convenient.", 2f);
         yield return ShowMessage("Attack them with [ Left Click ] / [ X Button ]", 3f);
 
