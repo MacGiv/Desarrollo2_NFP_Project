@@ -19,6 +19,7 @@ public class AudioHandler : MonoBehaviour
     [SerializeField] private float volume = 1.0f;
 
     private GameObject auraAudioSourceObj;
+    private GameObject footstepsAudioObj;
     private AudioSource auraAudioSource;
     private AudioSource footstepsSource;
 
@@ -87,9 +88,9 @@ public class AudioHandler : MonoBehaviour
 
         if (footstepsSource == null)
         {
-            GameObject footstepGO = new GameObject("FootstepsAudio");
-            footstepGO.transform.position = pos;
-            footstepsSource = footstepGO.AddComponent<AudioSource>();
+            footstepsAudioObj = new GameObject("FootstepsAudio");
+            footstepsAudioObj.transform.position = pos;
+            footstepsSource = footstepsAudioObj.AddComponent<AudioSource>();
             footstepsSource.clip = footstepsLoopClip;
             footstepsSource.loop = true;
             footstepsSource.volume = 0.5f;
@@ -99,10 +100,16 @@ public class AudioHandler : MonoBehaviour
             footstepsSource.Play();
     }
 
+
     private void StopFootsteps()
     {
-        if (footstepsSource != null && footstepsSource.isPlaying)
+        if (footstepsSource != null)
+        {
             footstepsSource.Stop();
+            Destroy(footstepsAudioObj);
+            footstepsSource = null;
+            footstepsAudioObj = null;
+        }
     }
 
     private void PlayPlayerJump(Vector3 pos)
