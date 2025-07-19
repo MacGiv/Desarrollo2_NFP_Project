@@ -117,4 +117,9 @@ public class AudioHandler : MonoBehaviour
         PlayClip(playerJumpClip, pos);
     }
 
+    private void OnDestroy()
+    {
+        if (footstepsSource != null)
+            Destroy(footstepsAudioObj);
+    }
 }
