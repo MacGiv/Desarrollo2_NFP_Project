@@ -16,6 +16,12 @@ public class PauseMenuUI : MonoBehaviour
         PauseManager.OnPauseChanged += ShowPauseMenu;
     }
 
+    private void Update()
+    {
+        if (EventSystem.current.currentSelectedGameObject == null)
+            EventSystem.current.SetSelectedGameObject(resumeButton.gameObject);
+    }
+
     private void OnDisable()
     {
         PauseManager.OnPauseChanged -= ShowPauseMenu;
