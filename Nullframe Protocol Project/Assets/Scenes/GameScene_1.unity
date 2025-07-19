@@ -5037,6 +5037,7 @@ GameObject:
   - component: {fileID: 1636647562}
   - component: {fileID: 1636647564}
   - component: {fileID: 1636647563}
+  - component: {fileID: 1636647565}
   m_Layer: 0
   m_Name: GameManager_TM
   m_TagString: Untagged
@@ -5128,6 +5129,27 @@ MonoBehaviour:
   delayBetweenMessages: 0.5
   nextScene: GameScene_2
   timeoutForActions: 10
+--- !u!114 &1636647565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1636647558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 000249a949bbf644eb324704277d7d81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHitClip: {fileID: 8300000, guid: f5e5e57bc78328448bbe7a99a42b640b, type: 3}
+  attackHitClip: {fileID: 8300000, guid: f878e3087321d6744b0582ae2e651a19, type: 3}
+  specialAttackClip: {fileID: 8300000, guid: f878e3087321d6744b0582ae2e651a19, type: 3}
+  chargeAbsorbedClip: {fileID: 8300000, guid: 17fd4564f19bbd4439e5c29cc39d85ba, type: 3}
+  enemyDeathClip: {fileID: 8300000, guid: a8d8eb10922e52648bd7fd66548dee8e, type: 3}
+  auraActiveClip: {fileID: 8300000, guid: 992578f622c06f54fadfebfca71ea53e, type: 3}
+  footstepsLoopClip: {fileID: 8300000, guid: e73b65f350aa2f745b78d6dec2ffe0ae, type: 3}
+  playerJumpClip: {fileID: 8300000, guid: dd7aa0995ac371740880a6ffd959c15a, type: 3}
+  volume: 1
 --- !u!1 &1637721076
 GameObject:
   m_ObjectHideFlags: 0

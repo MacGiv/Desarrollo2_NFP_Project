@@ -1,9 +1,16 @@
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerMoveState : PlayerGroundedState
 {
     public PlayerMoveState(PlayerCore core, PlayerStateMachine stateMachine, PlayerData data, string animName) : base(core, stateMachine, data, animName)
     { }
+
+    public override void Enter()
+    {
+        base.Enter();
+        AudioEvents.RaiseFootstepsStart(core.transform.position);
+    }
 
     public override void LogicUpdate()
     {
@@ -38,5 +45,10 @@ public class PlayerMoveState : PlayerGroundedState
         Vector3 moveDir = core.Movement.GetCameraRelativeInput();
         core.Movement.Move(moveDir);
         core.Movement.ApplyRotation(moveDir);
+    }
+    public override void Exit()
+    {
+        base.Exit();
+        AudioEvents.RaiseFootstepsStop();
     }
 }

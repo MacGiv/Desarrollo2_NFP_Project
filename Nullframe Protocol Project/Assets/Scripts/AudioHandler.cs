@@ -12,12 +12,15 @@ public class AudioHandler : MonoBehaviour
     [SerializeField] private AudioClip chargeAbsorbedClip;
     [SerializeField] private AudioClip enemyDeathClip;
     [SerializeField] private AudioClip auraActiveClip;
+    [SerializeField] private AudioClip footstepsLoopClip;
+    [SerializeField] private AudioClip playerJumpClip;
 
     [Header("Audio Settings")]
     [SerializeField] private float volume = 1.0f;
 
     private GameObject auraAudioSourceObj;
     private AudioSource auraAudioSource;
+    private AudioSource footstepsSource;
 
     private void OnEnable()
     {
@@ -27,6 +30,9 @@ public class AudioHandler : MonoBehaviour
         AudioEvents.OnChargeAbsorbed += PlayChargeAbsorbed;
         AudioEvents.OnEnemyDeath += PlayEnemyDeath;
         AudioEvents.OnAuraStateChanged += HandleAuraAudio;
+        AudioEvents.OnFootstepsStart += StartFootsteps;
+        AudioEvents.OnFootstepsStop += StopFootsteps;
+        AudioEvents.OnPlayerJump += PlayPlayerJump;
     }
 
     private void OnDisable()
@@ -37,6 +43,9 @@ public class AudioHandler : MonoBehaviour
         AudioEvents.OnChargeAbsorbed -= PlayChargeAbsorbed;
         AudioEvents.OnEnemyDeath -= PlayEnemyDeath;
         AudioEvents.OnAuraStateChanged -= HandleAuraAudio;
+        AudioEvents.OnFootstepsStart -= StartFootsteps;
+        AudioEvents.OnFootstepsStop -= StopFootsteps;
+        AudioEvents.OnPlayerJump -= PlayPlayerJump;
     }
 
     private void PlayClip(AudioClip clip, Vector3 pos)
@@ -71,4 +80,34 @@ public class AudioHandler : MonoBehaviour
             auraAudioSource.Play();
         }
     }
+
+    private void StartFootsteps(Vector3 pos)
+    {
+        if (footstepsLoopClip == null) return;
+
+        if (footstepsSource == null)
+        {
+            GameObject footstepGO = new GameObject("FootstepsAudio");
+            footstepGO.transform.position = pos;
+            footstepsSource = footstepGO.AddComponent<AudioSource>();
+            footstepsSource.clip = footstepsLoopClip;
+            footstepsSource.loop = true;
+            footstepsSource.volume = 0.5f;
+        }
+
+        if (!footstepsSource.isPlaying)
+            footstepsSource.Play();
+    }
+
+    private void StopFootsteps()
+    {
+        if (footstepsSource != null && footstepsSource.isPlaying)
+            footstepsSource.Stop();
+    }
+
+    private void PlayPlayerJump(Vector3 pos)
+    {
+        PlayClip(playerJumpClip, pos);
+    }
+
 }

@@ -11,6 +11,7 @@ public class PlayerJumpState : PlayerState
     {
         base.Enter();
         core.Movement.Jump();
+        AudioEvents.RaisePlayerJump(core.transform.position);
     }
 
     public override void PhysicsUpdate()

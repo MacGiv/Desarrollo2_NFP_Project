@@ -7905,6 +7905,14 @@ PrefabInstance:
       propertyPath: timeoutForActions
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 7414310424059304279, guid: f26f5df6a28ed6847a00de0b8385d602, type: 3}
+      propertyPath: playerJumpClip
+      value: 
+      objectReference: {fileID: 8300000, guid: dd7aa0995ac371740880a6ffd959c15a, type: 3}
+    - target: {fileID: 7414310424059304279, guid: f26f5df6a28ed6847a00de0b8385d602, type: 3}
+      propertyPath: footstepsLoopClip
+      value: 
+      objectReference: {fileID: 8300000, guid: e73b65f350aa2f745b78d6dec2ffe0ae, type: 3}
     - target: {fileID: 8627076754117451052, guid: f26f5df6a28ed6847a00de0b8385d602, type: 3}
       propertyPath: pauseCanvas
       value: 
