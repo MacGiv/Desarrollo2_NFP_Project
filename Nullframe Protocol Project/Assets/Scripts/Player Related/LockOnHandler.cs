@@ -22,11 +22,13 @@ public class LockOnHandler : MonoBehaviour
         {
             _isLockedOn = false;
             _currentTarget = null;
+            LockOnEvents.RaiseLockOnDisabled();
         }
         else
         {
             TryFindTarget();
         }
+
         Debug.Log("[LockOnHandler] Lock On Vision Toggled!");
     }
 
@@ -36,7 +38,6 @@ public class LockOnHandler : MonoBehaviour
         _isLockedOn = false;
 
         Collider[] hits = Physics.OverlapSphere(transform.position, lockOnRadius, enemyLayer);
-
         float closest = Mathf.Infinity;
 
         foreach (var hit in hits)
@@ -58,13 +59,10 @@ public class LockOnHandler : MonoBehaviour
         if (_currentTarget != null)
         {
             _isLockedOn = true;
+            LockOnEvents.RaiseLockOnEnabled();
 
-            // Si tiene EnemyHealthSystem, registrarse para el evento
-            EnemyHealthSystem enemyHp = _currentTarget.GetComponent<EnemyHealthSystem>();
-            if (enemyHp != null)
-            {
+            if (_currentTarget.TryGetComponent(out EnemyHealthSystem enemyHp))
                 enemyHp.OnDeath += OnLockedEnemyDestroyed;
-            }
         }
     }
 
@@ -74,15 +72,18 @@ public class LockOnHandler : MonoBehaviour
         {
             _currentTarget = null;
             _isLockedOn = false;
+            LockOnEvents.RaiseLockOnDisabled();
             Debug.Log("[LockOnHandler] Lock Off (Target destroyed via event)");
         }
     }
+
 
     public void ForceUnlock()
     {
         _isLockedOn = false;
         _currentTarget = null;
-        Debug.Log("[LockOnHandler] Force Lock Off (Target destroyed)");
+        LockOnEvents.RaiseLockOnDisabled();
+        Debug.Log("[LockOnHandler] Force Lock Off");
     }
 
 }
